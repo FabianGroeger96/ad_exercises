@@ -1,7 +1,14 @@
-package ch.hslu.ad.sw01.E0;
+package ch.hslu.AD.SW01.MemoryAllocator;
 
 import java.util.Objects;
 
+/**
+ * Übung: Entwicklung Intro (E0)
+ * Aufgabe: Wiedereinstieg in die Programmierung mit Java
+ *
+ * @author Fabian Gröger
+ * @version 21.02.2018
+ */
 public final class Allocation implements Comparable<Allocation>{
 
     private int startaddress;

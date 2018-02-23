@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.sw01.E0;
+package ch.hslu.AD.SW01.MemoryAllocator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Entwicklung Intro (E0)
- * Wiedereinstieg in die Programmierung mit Java
+ * Übung: Entwicklung Intro (E0)
+ * Aufgabe: Wiedereinstieg in die Programmierung mit Java
  *
- * Fabian Gröger
+ * @author Fabian Gröger
+ * @version 21.02.2018
  */
 public final class MemoryDemo {
 

@@ -1,9 +1,16 @@
-package ch.hslu.ad.sw01.E0;
+package ch.hslu.AD.SW01.MemoryAllocator;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Übung: Entwicklung Intro (E0)
+ * Aufgabe: Wiedereinstieg in die Programmierung mit Java
+ *
+ * @author Fabian Gröger
+ * @version 21.02.2018
+ */
 public class MemorySimple extends Memory {
 
     private Map<Integer, Integer> memory;
