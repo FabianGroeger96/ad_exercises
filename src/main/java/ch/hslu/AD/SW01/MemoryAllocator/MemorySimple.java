@@ -11,9 +11,12 @@ import java.util.Map;
  * @author Fabian Gröger
  * @version 21.02.2018
  */
-public class MemorySimple extends Memory {
+public class MemorySimple implements Memory {
 
     private Map<Integer, Integer> memory;
+
+    private int size;
+    private int allocated;
 
     public MemorySimple(int size) {
         memory = new HashMap<>();
@@ -22,6 +25,9 @@ public class MemorySimple extends Memory {
         }
     }
 
+    /*
+    Besser programmieren
+     */
     private int countUsed(){
         int used = 0;
         Iterator iterator = memory.entrySet().iterator();
@@ -35,6 +41,9 @@ public class MemorySimple extends Memory {
         return used;
     }
 
+    /*
+    Besser programmieren
+     */
     public void use(int size){
         int set = 0;
         Iterator iterator = memory.entrySet().iterator();
@@ -50,20 +59,30 @@ public class MemorySimple extends Memory {
     }
 
     @Override
-    public String toString() {
-        int used = this.countUsed();
-        return "MemorySimple[Belegt: " + used + "; Frei: " + (this.memory.size() - used) + "]";
-    }
-
-    @Override
-    public Allocation malloc(int size) {
+    public Allocation malloc(int blockSize) {
         //int used = this.countUsed();
-        use(size);
-        return new Allocation(this.countUsed(), size);
+        use(blockSize);
+        return new Allocation(this.countUsed(), blockSize);
     }
 
     @Override
     public void free(Allocation allocation) {
 
+    }
+
+    @Override
+    public int getAllocated() {
+        return allocated;
+    }
+
+    @Override
+    public int getFree() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        int used = this.countUsed();
+        return "MemorySimple[Belegt: " + used + "; Frei: " + (this.memory.size() - used) + "]";
     }
 }

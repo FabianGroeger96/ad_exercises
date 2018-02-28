@@ -6,44 +6,70 @@ import java.util.Objects;
  * Übung: Entwicklung Intro (E0)
  * Aufgabe: Wiedereinstieg in die Programmierung mit Java
  *
+ * Modell für einen Speicherbereich. Immutable implementiert.
+ *
  * @author Fabian Gröger
  * @version 21.02.2018
  */
-public final class Allocation implements Comparable<Allocation>{
+public final class Allocation {
 
-    private int startaddress;
-    private int size;
+    private final int size;
+    private final int address;
 
-    public Allocation(int startaddress, int size) {
-        this.startaddress = startaddress;
+    /**
+     * Erzeugt einen Block Addresse und Grösse.
+     * @param address Startadresse.
+     * @param size Grösse.
+     */
+    public Allocation(final int address, final int size) {
+        this.address = address;
         this.size = size;
     }
 
-    @Override
-    public String toString() {
-        return "Allocation[Address: " + this.startaddress + "; Size: " + this.size + "]";
+    /**
+     * Liefert die Startadresse.
+     * @return Startadresse.
+     */
+    public int getAddress() {
+        return this.address;
     }
 
+    /**
+     * Liefert die Grösse.
+     * @return Grösse.
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
+    public boolean equals(final Object other) {
+        if (this == other) {
             return true;
         }
-        if (!(obj instanceof Allocation)) {
+        if (!(other instanceof Allocation)) {
             return false;
         }
-        final Allocation other = (Allocation) obj;
-
-        return other.startaddress == this.startaddress && other.size == this.size;
+        final Allocation alloc = (Allocation) other;
+        return this.address == alloc.address && this.size == alloc.size;
     }
 
+    /*
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(this.startaddress, this.size);
+        return Objects.hash(this.address, this.size);
     }
 
+    /*
+     * @see java.lang.Object#toString()
+     */
     @Override
-    public int compareTo(Allocation other) {
-        return Float.compare(this.startaddress, other.startaddress);
+    public String toString() {
+        return "Allocation[Address:" + this.address + "; Size:" + this.size + "]";
     }
 }

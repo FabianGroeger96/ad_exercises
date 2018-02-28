@@ -7,10 +7,13 @@ package ch.hslu.AD.SW01.MemoryAllocator;
  * @author Fabian Gröger
  * @version 21.02.2018
  */
-public abstract class Memory {
+public interface Memory {
 
-    public abstract Allocation malloc(int size);
+    Allocation malloc(int size);
 
-    public abstract void free(Allocation allocation);
+    void free(Allocation allocation);
 
+    int getAllocated();
+
+    int getFree();
 }
