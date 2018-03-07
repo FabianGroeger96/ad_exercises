@@ -2,6 +2,13 @@ package ch.hslu.AD.SW02.ArrayStack;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Übung: Arrays, Listen, Stack und Queue (D1)
+ * Aufgabe: Implementation eines Stacks mit Hilfe eines Array
+ *
+ * @author Fabian Gröger
+ * @version 07.03.2018
+ */
 public class ArrayStack<T> implements Stack<T> {
 
     private int index = 0;
@@ -15,7 +22,7 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        if (this.index == 0){
+        if (this.index == 0) {
             return true;
         } else {
             return false;
@@ -24,7 +31,7 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public boolean isFull() {
-        if (this.index == this.stack.length){
+        if (this.index == this.stack.length) {
             return true;
         } else {
             return false;
@@ -39,7 +46,7 @@ public class ArrayStack<T> implements Stack<T> {
     @Override
     public boolean push(final T element) throws StackFullException {
         // Wenn der Stack voll ist wird eine Exception erzeugt
-        if(isFull()) {
+        if (isFull()) {
             throw new StackFullException(stack.length);
         }
 
@@ -49,18 +56,18 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public T pop() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException("Stack is empty");
         }
 
         T element = stack[--index];
-        stack[index] = null; // remove element from stack to allow GC to delete object
+        stack[index] = null; // remove element from stack to allow Garbage Collector to delete object
         return element;
     }
 
     @Override
     public T peek() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new NoSuchElementException("Stack is empty");
         }
 
