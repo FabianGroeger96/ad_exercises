@@ -6,11 +6,15 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
+/**
+ * Übung: Arrays, Listen, Stack und Queue (D1)
+ * Aufgabe: Implementation eines Stacks mit Hilfe eines Array
+ *
+ * @author Fabian Gröger
+ * @version 07.03.2018
+ */
 public class ArrayStackTest {
 
-    /**
-     * Test Cases
-     */
     @Test
     public void testCreatingStack() {
         ArrayStack<String> stack = new ArrayStack<>(5);
@@ -63,6 +67,16 @@ public class ArrayStackTest {
         assertFalse(stack.isEmpty());
         assertEquals("Test", stack.pop());
         assertTrue(stack.isEmpty());
+    }
+
+    @Test
+    public void testAddingElementsInteger() throws Exception {
+        ArrayStack<Integer> stack = new ArrayStack<>(3);
+        stack.push(new Integer(1));
+        stack.push(new Integer(2));
+        stack.push(new Integer(3));
+
+        assertEquals(3, stack.size());
     }
 
 }

@@ -1,11 +1,14 @@
 package ch.hslu.AD.SW02.SingleLinkedList;
 
-import java.util.List;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
+/**
+ * Übung: Arrays, Listen, Stack und Queue (D1)
+ * Aufgabe: Implementation einer einfach verketteten Liste
+ *
+ * @author Fabian Gröger
+ * @version 07.03.2018
+ */
 public class SingleLinkedList<T> implements List<T> {
     private int size = 0;
     private Node head;
@@ -26,6 +29,15 @@ public class SingleLinkedList<T> implements List<T> {
     }
 
     /**
+     * Löschen der Liste
+     */
+    @Override
+    public void clear() {
+        size = 0;
+        head = null;
+    }
+
+    /**
      * Hinzufügen eines Elements am Index 0
      * @param element Hinzuzufügendes Element
      * @return ob der Vorgang geklappt hat
@@ -43,16 +55,20 @@ public class SingleLinkedList<T> implements List<T> {
      */
     @Override
     public void add(final int index, final T element) {
-        int currentIndex = 0;
-        Node currentNode = head;
+        int currentIndex = 0; // Zwischenspeicher, für den Index des aktuellen Nodes
+        Node currentNode = head; // Zwischenspeicher, für den Node vor dem gewünschten Index
 
+        // Überprüft wo der gewünschte Index ist und lädt den vorherigen Node
         while(currentNode.hasNext() && currentIndex < index) {
             currentNode = currentNode.next();
             currentIndex++;
         }
 
+        // Erstellt ein neuen Node mit dem übergebenen Element
         Node node = new Node(element);
+        // Verknüpft den neuen Node mit dem vorherigen Node, sodass dieser auf ihn zeigt mit next()
         node.link(currentNode.next());
+        // Verknüpft den Node vor dem einzufügenden Node mit dem nachkommenden
         currentNode.link(node);
         size++;
     }
@@ -64,7 +80,9 @@ public class SingleLinkedList<T> implements List<T> {
      */
     @Override
     public boolean addAll(final Collection<? extends T> collection) {
+        // Iteration durch alle Elemente der übergebenen Collection
         for(T element : collection) {
+            // Fügt jedes Element mit der add() - Methode hinzu, an Index 0
             add(element);
         }
 
@@ -79,23 +97,16 @@ public class SingleLinkedList<T> implements List<T> {
      */
     @Override
     public boolean addAll(final int index,final Collection<? extends T> collection) {
-        int currentIndex = index;
+        int currentIndex = index; // Zwischenspeicher, für den übergebenen Index der mit jedem add() erhöht wird
+        // Iteration durch alle Elemente der übergebenen Collection
         for(T element : collection) {
+            // Fügt jedes Element mit der add() - Methode hinzu, am übergebenen Index welcher mit jedem add() erhört wird
             add(currentIndex, element);
+            // Erhöht den übergebenen Index, um das nächste Element hinter dem vorherigen einzufügen
             currentIndex++;
-            size++;
         }
 
         return true;
-    }
-
-    /**
-     * Löschen der Liste
-     */
-    @Override
-    public void clear() {
-        size = 0;
-        head = null;
     }
 
     /**
@@ -105,10 +116,12 @@ public class SingleLinkedList<T> implements List<T> {
      */
     @Override
     public boolean contains(Object object) {
-        Node currentNode = head;
+        Node currentNode = head; // Zwischenspeicher, für das aktuelle Element
 
+        // Iteriert durch die ganze Liste
         while(currentNode.hasNext()) {
             currentNode = currentNode.next();
+            // Überprüft ob das übergebene Object gleich wie das aktuelle Element ist
             if(object.equals(currentNode.getElement())) {
                 return true;
             }
@@ -123,7 +136,19 @@ public class SingleLinkedList<T> implements List<T> {
      */
     @Override
     public boolean containsAll(Collection<?> collection) {
-        throw new UnsupportedOperationException();
+        Set<?> set = new HashSet<>(collection);
+
+        for (T element : this) {
+            if (set.contains(element)) {
+                set.remove(element);
+
+                if (set.isEmpty()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -155,8 +180,13 @@ public class SingleLinkedList<T> implements List<T> {
         return node.getElement();
     }
 
+    /**
+     * Gibt den Node an dem übergebenen Index zurück
+     * @param index Index des Nodes
+     * @return Node am übergebenen Index
+     */
     @Override
-    public T get(int index) {
+    public T get(final int index) {
         Node node = getNode(index);
         if(node == null) {
             throw new IndexOutOfBoundsException(String.format("Index: %d, Size: %d", index, size()));
@@ -164,11 +194,31 @@ public class SingleLinkedList<T> implements List<T> {
         return node.getElement();
     }
 
+    /**
+     * Gibt den Index des übergebenen Objekts zurück
+     * @param object Objekt das gesucht wird
+     * @return Index des übergebenen Objekts
+     */
     @Override
-    public int indexOf(Object o) {
-        throw new UnsupportedOperationException();
+    public int indexOf(final Object object) throws NoSuchElementException{
+        Node currentNode = head;
+        int index = 0;
+
+        while(currentNode.hasNext()) {
+            currentNode = currentNode.next();
+            if(object.equals(currentNode.getElement())) {
+                return index;
+            }
+            index++;
+        }
+
+        throw new NoSuchElementException();
     }
 
+    /**
+     * Überprüft ob der Stack leer ist
+     * @return true wenn der Stack leer ist, false wenn ers nicht ist
+     */
     @Override
     public boolean isEmpty() {
         return size == 0 && head == null;
@@ -180,8 +230,26 @@ public class SingleLinkedList<T> implements List<T> {
     }
 
     @Override
-    public int lastIndexOf(Object o) {
-        throw new UnsupportedOperationException();
+    public int lastIndexOf(Object object) throws NoSuchElementException {
+        Node currentNode = head;
+        int index = 0;
+        int lastindex = 0;
+        boolean hasElement = false;
+
+        while(currentNode.hasNext()) {
+            currentNode = currentNode.next();
+            if(object.equals(currentNode.getElement())) {
+                lastindex = index;
+                hasElement = true;
+            }
+            index++;
+        }
+
+        if (hasElement){
+            return lastindex;
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -191,7 +259,11 @@ public class SingleLinkedList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        throw new UnsupportedOperationException();
+        if (index == 0){
+            return new SingleLinkedListListIterator(null, head, 0, 0);
+        } else {
+            return new SingleLinkedListListIterator(null, head, index - 1, index);
+        }
     }
 
     @Override

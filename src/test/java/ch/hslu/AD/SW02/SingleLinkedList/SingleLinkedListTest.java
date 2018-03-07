@@ -1,36 +1,26 @@
 package ch.hslu.AD.SW02.SingleLinkedList;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
-public class SingleLinkedListTest extends TestCase{
+/**
+ * Übung: Arrays, Listen, Stack und Queue (D1)
+ * Aufgabe: Implementation einer einfach verketteten Liste
+ *
+ * @author Fabian Gröger
+ * @version 07.03.2018
+ */
+public class SingleLinkedListTest {
 
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public SingleLinkedListTest(String testName) {
-        super(testName);
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite() {
-        return new TestSuite(SingleLinkedListTest.class);
-    }
-
-    /**
-     * Test Cases
-     */
+    @Test
     public void testAddingElements() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         assertEquals(0, list.size());
@@ -41,6 +31,25 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(3, list.size());
     }
 
+    @Test
+    public void testAddingAllAtIndex() {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        SingleLinkedList<Integer> rootList = new SingleLinkedList<>();
+        assertEquals(0, rootList.size());
+        rootList.add(11);
+        rootList.add(22);
+        rootList.add(33);
+        assertEquals(3, rootList.size());
+
+        rootList.addAll(0, list);
+        assertEquals(6, rootList.size());
+    }
+
+    @Test
     public void testSimpleIterating() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -55,6 +64,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(false, it.hasNext());
     }
 
+    @Test
     public void testAddingAtIndex() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -79,6 +89,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(new Integer(1), it.next());
     }
 
+    @Test
     public void testAddingCollection() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         List<Integer> arrayList = new ArrayList<>();
@@ -107,6 +118,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(false, it.hasNext());
     }
 
+    @Test
     public void testClear() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -118,6 +130,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(true, list.isEmpty());
     }
 
+    @Test
     public void testGetElementAtZero() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -129,6 +142,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(2, list.size());
     }
 
+    @Test
     public void testGetElementAtIndex() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -142,6 +156,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(new Integer(1), list.get(3));
     }
 
+    @Test
     public void testRemoveElement() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -163,6 +178,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(new Integer(3), it.next());
     }
 
+    @Test
     public void testRemoveNonExistingElement() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(1);
@@ -174,6 +190,7 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(4, list.size());
     }
 
+    @Test
     public void testRemoveElementAtIndex() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         list.add(6);
@@ -206,5 +223,85 @@ public class SingleLinkedListTest extends TestCase{
         assertEquals(new Integer(3), it.next());
         assertEquals(new Integer(4), it.next());
         assertEquals(new Integer(5), it.next());
+    }
+
+    @Test
+    public void testIndexOf() {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        assertEquals(3, list.indexOf(new Integer(1)));
+    }
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void testIndexOfException() throws NoSuchElementException {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        exception.expect(NoSuchElementException.class);
+        list.indexOf(new Integer(10));
+    }
+
+    @Test
+    public void testContains() {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        assertTrue(list.contains(new Integer(1)));
+        assertFalse(list.contains(new Integer(5)));
+    }
+
+    @Test
+    public void testContainsAll() {
+        SingleLinkedList<Integer> singleLinkedList = new SingleLinkedList<>();
+        singleLinkedList.add(1);
+        singleLinkedList.add(2);
+        singleLinkedList.add(3);
+        singleLinkedList.add(4);
+
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+
+        assertTrue(singleLinkedList.containsAll(list));
+
+        list.add(5);
+
+        assertFalse(singleLinkedList.containsAll(list));
+    }
+
+    @Test
+    public void testLastIndexOf() {
+        SingleLinkedList<Integer> singleLinkedList = new SingleLinkedList<>();
+        singleLinkedList.add(1);
+        singleLinkedList.add(2);
+        singleLinkedList.add(1);
+        singleLinkedList.add(2);
+
+        assertEquals(2, singleLinkedList.lastIndexOf(new Integer(2)));
+        assertEquals(3, singleLinkedList.lastIndexOf(new Integer(1)));
+    }
+
+    @Test
+    public void testLastIndexOfException() throws NoSuchElementException {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(1);
+        list.add(2);
+
+        exception.expect(NoSuchElementException.class);
+        list.lastIndexOf(new Integer(10));
     }
 }

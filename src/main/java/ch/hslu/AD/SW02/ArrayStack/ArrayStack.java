@@ -2,6 +2,13 @@ package ch.hslu.AD.SW02.ArrayStack;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Übung: Arrays, Listen, Stack und Queue (D1)
+ * Aufgabe: Implementation eines Stacks mit Hilfe eines Array
+ *
+ * @author Fabian Gröger
+ * @version 07.03.2018
+ */
 public class ArrayStack<T> implements Stack<T> {
 
     private int index = 0;
@@ -54,7 +61,7 @@ public class ArrayStack<T> implements Stack<T> {
         }
 
         T element = stack[--index];
-        stack[index] = null; // remove element from stack to allow GC to delete object
+        stack[index] = null; // remove element from stack to allow Garbage Collector to delete object
         return element;
     }
 
