@@ -1,9 +1,9 @@
 # Java Projekt für AD Exercises
 
-[![build status](https://gitlab.enterpriselab.ch/oop/oop_maven_template/badges/develop/build.svg)](https://gitlab.enterpriselab.ch/oop/oop_maven_template/commits/develop)
-
 ## Gelöste Aufgaben
-* **SW01** - Übung: Einführung E1
+* **SW01** - Übung: Einführung (E1)
+* **SW02** - Übung: Arrays, Listen, Stack und Queue (D1)
+* **SW03** - Übung: Bäume, Binärbäume und Suchbäume (D2)
 
 ## Enhaltene Libraries (Dependencies)
 * Logging Framework - http://logging.apache.org/log4j/2.x/
