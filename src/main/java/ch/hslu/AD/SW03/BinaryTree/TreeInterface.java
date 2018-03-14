@@ -7,12 +7,12 @@ import java.util.List;
  * @author Fabian Gröger
  * @version 13.03.2018
  */
-public interface Tree<T extends Comparable<T>> {
+public interface TreeInterface<T extends Comparable<T>> {
     /**
      * Add the given element to the tree.
      *
      * The element has to be sorted properly
-     * according to the Tree interface consumer.
+     * according to the TreeInterface interface consumer.
      *
      * @param element the element to add
      * @return if the element could be added
@@ -23,7 +23,7 @@ public interface Tree<T extends Comparable<T>> {
      * Remove the given element from the tree.
      *
      * The tree has to ensure the integrity
-     * according to the Tree interface consumer.
+     * according to the TreeInterface interface consumer.
      *
      * @param element the element to remove
      * @return if the element could be removed

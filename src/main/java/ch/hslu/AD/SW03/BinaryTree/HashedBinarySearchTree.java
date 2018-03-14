@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * @author Fabian Gröger
  * @version 13.03.2018
  */
-public class HashedBinarySearchTree<T extends Comparable<T>> implements Tree<T> {
+public class HashedBinarySearchTree<T extends Comparable<T>> implements TreeInterface<T> {
 
     /**
      * Maximum allowed children for each node.
