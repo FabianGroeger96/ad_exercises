@@ -1,5 +1,7 @@
 package ch.hslu.AD.SW04.SimpleHashTable;
 
+import java.util.Objects;
+
 /**
  * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
  * Aufgabe: Einfache Hashtabelle
@@ -12,16 +14,13 @@ package ch.hslu.AD.SW04.SimpleHashTable;
 public final class HashItem {
 
     private final int value;
-    private final int hashCode;
 
     /**
      * Creates a HashItem with a value and a hashcode
      * @param value the value of the item
-     * @param hashCode the hashcode of the item
      */
-    public HashItem(final int value, final int hashCode) {
+    public HashItem(final int value) {
         this.value = value;
-        this.hashCode = hashCode;
     }
 
     /*
@@ -44,7 +43,7 @@ public final class HashItem {
      */
     @Override
     public int hashCode() {
-        return this.hashCode;
+        return Objects.hash(this.value);
     }
 
     /*
@@ -52,6 +51,6 @@ public final class HashItem {
      */
     @Override
     public String toString() {
-        return "HashItem[Value:" + this.value + "; HashCode:" + this.hashCode + "]";
+        return "HashItem[Value:" + this.value + "]";
     }
 }

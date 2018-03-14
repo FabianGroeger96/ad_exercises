@@ -7,25 +7,24 @@ package ch.hslu.AD.SW04.SimpleHashTable;
  * @author Fabian Gröger
  * @version 14.03.2018
  */
-public class HashSet<T> implements HashTableInterface<T> {
+public class HashSet implements HashTableInterface {
 
     private static int DEFAULT_ARRAY_SIZE = 10;
 
-    private T[] items;
+    private HashItem[] items;
 
     public HashSet(){
-         final T[] items = (T[])  new Object[DEFAULT_ARRAY_SIZE];
-         this.items = items;
+         this.items = new HashItem[DEFAULT_ARRAY_SIZE];
     }
 
     @Override
-    public boolean add(T item) {
+    public boolean add(HashItem item) {
         items[getIndex(item)] =  item;
         return true;
     }
 
     @Override
-    public boolean remove(T item) {
+    public boolean remove(HashItem item) {
         if (contains(item)){
             items[getIndex(item)] = null;
             return true;
@@ -35,12 +34,17 @@ public class HashSet<T> implements HashTableInterface<T> {
     }
 
     @Override
-    public boolean contains(T item) {
+    public boolean contains(HashItem item) {
         return items[getIndex(item)] != null ;
     }
 
     @Override
-    public int getIndex(T item) {
+    public int getIndex(HashItem item) {
         return item.hashCode() % DEFAULT_ARRAY_SIZE ;
+    }
+
+    @Override
+    public String toString() {
+        return items.toString();
     }
 }

@@ -8,34 +8,42 @@ public class HashSetTest {
 
     @Test
     public void testAdd(){
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        assertTrue(hashSet.add(1));
-        assertTrue(hashSet.add(6));
-        assertTrue(hashSet.add(4));
+        HashSet hashSet = new HashSet();
+        assertTrue(hashSet.add(new HashItem(1)));
+        assertTrue(hashSet.add(new HashItem(2)));
+        assertTrue(hashSet.add(new HashItem(3)));
+    }
+
+    @Test
+    public void testAddDuplicate(){
+        HashSet hashSet = new HashSet();
+        hashSet.add(new HashItem(1));
+        hashSet.add(new HashItem(1));
+        assertTrue(hashSet.contains(new HashItem(1)));
     }
 
     @Test
     public void testContains(){
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        assertFalse(hashSet.contains(1));
-        hashSet.add(1);
-        assertTrue(hashSet.contains(1));
+        HashSet hashSet = new HashSet();
+        assertFalse(hashSet.contains(new HashItem(1)));
+        hashSet.add(new HashItem(1));
+        assertTrue(hashSet.contains(new HashItem(1)));
     }
 
     @Test
     public void testRemove(){
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        hashSet.add(1);
-        assertTrue(hashSet.contains(1));
-        assertTrue(hashSet.remove(1));
-        assertFalse(hashSet.contains(1));
+        HashSet hashSet = new HashSet();
+        hashSet.add(new HashItem(1));
+        assertTrue(hashSet.contains(new HashItem(1)));
+        assertTrue(hashSet.remove(new HashItem(1)));
+        assertFalse(hashSet.contains(new HashItem(1)));
     }
 
     @Test
     public void testRemoveNull(){
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        assertFalse(hashSet.contains(1));
-        assertFalse(hashSet.remove(1));
+        HashSet hashSet = new HashSet();
+        assertFalse(hashSet.contains(new HashItem(1)));
+        assertFalse(hashSet.remove(new HashItem(1)));
     }
 
 }
