@@ -1,9 +1,11 @@
 package ch.hslu.AD.SW04.CollisionHashTable;
 
+import java.util.Objects;
+
 /**
  * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
- * Aufgabe: Einfache Hashtabelle
- *
+ * Aufgabe: Hashtabelle mit Kollisionen
+ * <p>
  * Modell für einen HashItem. Immutable implementiert.
  *
  * @author Fabian Gröger
@@ -16,9 +18,14 @@ public final class HashItem {
 
     /**
      * Creates a HashItem with a value and a hashcode
+     *
      * @param value the value of the item
-     * @param hashCode the hashcode of the item
      */
+    public HashItem(final int value) {
+        this.value = value;
+        this.hashCode = 0;
+    }
+
     public HashItem(final int value, final int hashCode) {
         this.value = value;
         this.hashCode = hashCode;
@@ -36,7 +43,7 @@ public final class HashItem {
             return false;
         }
         final HashItem alloc = (HashItem) other;
-        return this.value == alloc.value;
+        return this.value == alloc.value && this.hashCode == alloc.hashCode;
     }
 
     /*
@@ -44,7 +51,11 @@ public final class HashItem {
      */
     @Override
     public int hashCode() {
-        return this.hashCode;
+        if (hashCode != 0) {
+            return hashCode;
+        } else {
+            return Objects.hash(this.value);
+        }
     }
 
     /*
@@ -52,6 +63,6 @@ public final class HashItem {
      */
     @Override
     public String toString() {
-        return "HashItem[Value:" + this.value + "; HashCode:" + this.hashCode + "]";
+        return "HashItem[Value:" + this.value + "; Size:" + this.hashCode + "]";
     }
 }

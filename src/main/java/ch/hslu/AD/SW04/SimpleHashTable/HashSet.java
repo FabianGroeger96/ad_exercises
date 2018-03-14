@@ -13,19 +13,19 @@ public class HashSet implements HashTableInterface {
 
     private HashItem[] items;
 
-    public HashSet(){
-         this.items = new HashItem[DEFAULT_ARRAY_SIZE];
+    public HashSet() {
+        this.items = new HashItem[DEFAULT_ARRAY_SIZE];
     }
 
     @Override
     public boolean add(HashItem item) {
-        items[getIndex(item)] =  item;
+        items[getIndex(item)] = item;
         return true;
     }
 
     @Override
     public boolean remove(HashItem item) {
-        if (contains(item)){
+        if (contains(item)) {
             items[getIndex(item)] = null;
             return true;
         } else {
@@ -35,12 +35,12 @@ public class HashSet implements HashTableInterface {
 
     @Override
     public boolean contains(HashItem item) {
-        return items[getIndex(item)] != null ;
+        return items[getIndex(item)] != null;
     }
 
     @Override
     public int getIndex(HashItem item) {
-        return item.hashCode() % DEFAULT_ARRAY_SIZE ;
+        return item.hashCode() % DEFAULT_ARRAY_SIZE;
     }
 
     @Override

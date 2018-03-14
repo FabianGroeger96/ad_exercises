@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
  * Aufgabe: Einfache Hashtabelle
- *
+ * <p>
  * Modell für einen HashItem. Immutable implementiert.
  *
  * @author Fabian Gröger
@@ -17,6 +17,7 @@ public final class HashItem {
 
     /**
      * Creates a HashItem with a value and a hashcode
+     *
      * @param value the value of the item
      */
     public HashItem(final int value) {

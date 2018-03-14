@@ -2,7 +2,7 @@ package ch.hslu.AD.SW04.CollisionHashTable;
 
 /**
  * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
- * Aufgabe: Einfache Hashtabelle
+ * Aufgabe: Hashtabelle mit Kollisionen
  *
  * @author Fabian Gröger
  * @version 14.03.2018
@@ -42,9 +42,9 @@ public interface HashTableInterface<T> {
     public int getIndex(T item);
 
     /**
-     * Returns the size of the HashTable
+     * Returns the size of the hashtable
      *
-     * @return the size of the table
+     * @return size of the hashtable
      */
     public int size();
 }
