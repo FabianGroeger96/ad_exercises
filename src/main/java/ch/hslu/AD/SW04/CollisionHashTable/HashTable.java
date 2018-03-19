@@ -10,14 +10,14 @@ import org.apache.logging.log4j.Logger;
  * @author Fabian Gröger
  * @version 14.03.2018
  */
-public class HashSet<T> implements HashTableInterface<T> {
+public class HashTable<T> implements HashTableInterface<T> {
 
     private static int DEFAULT_ARRAY_SIZE = 10;
-    private static final Logger LOGGER = LogManager.getLogger(HashSet.class);
+    private static final Logger LOGGER = LogManager.getLogger(HashTable.class);
 
     private T[] items;
 
-    public HashSet() {
+    public HashTable() {
         final T[] items = (T[]) new Object[DEFAULT_ARRAY_SIZE];
         this.items = items;
     }
@@ -25,12 +25,12 @@ public class HashSet<T> implements HashTableInterface<T> {
     @Override
     public boolean add(T item) {
         // Check if Set is full
-        if (size() == DEFAULT_ARRAY_SIZE){
+        if (size() == DEFAULT_ARRAY_SIZE) {
             return false;
         } else {
             int index = getIndex(item);
             do {
-                if (items[index] != null) {
+                if (items[index] != null) { // tombstone not implemented
                     if (items[index].equals(item)) {
                         return false;
                     } else {
@@ -49,12 +49,17 @@ public class HashSet<T> implements HashTableInterface<T> {
     @Override
     public boolean remove(T item) {
         // Check if Set is empty
-        if (size() == 0){
+        if (size() == 0) {
             return false;
-        } else{
+        } else {
             int searchIndex = search(item);
             if (searchIndex >= 0) {
-                items[searchIndex] = null;
+                T nextItem = items[searchIndex + 1];
+                if (nextItem != null && nextItem.hashCode() == items[searchIndex].hashCode()) {
+                    items[searchIndex] = (T) new Object();
+                } else {
+                    items[searchIndex] = null;
+                }
                 return true;
             } else {
                 return false;
@@ -126,7 +131,7 @@ public class HashSet<T> implements HashTableInterface<T> {
     @Override
     public void print() {
         for (int i = 0; (i < items.length); i++) {
-            if (items[i] != null){
+            if (items[i] != null) {
                 LOGGER.info(i + ": " + items[i].toString());
             } else {
                 LOGGER.info(i + ": ");

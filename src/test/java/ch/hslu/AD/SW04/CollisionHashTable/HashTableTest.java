@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class HashSetTest {
+public class HashTableTest {
 
     @Test
     public void testAdd() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.add(new HashItem(2)));
         assertTrue(hashSet.add(new HashItem(3)));
@@ -18,7 +18,7 @@ public class HashSetTest {
 
     @Test
     public void testAddFull() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.add(new HashItem(2)));
         assertTrue(hashSet.add(new HashItem(3)));
@@ -37,7 +37,7 @@ public class HashSetTest {
 
     @Test
     public void testAddDuplicate() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertFalse(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.contains(new HashItem(1)));
@@ -46,7 +46,7 @@ public class HashSetTest {
 
     @Test
     public void testContainsCollisions() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         hashSet.add(new HashItem(10, 10));
         hashSet.add(new HashItem(11, 10));
         hashSet.add(new HashItem(12, 10));
@@ -58,7 +58,7 @@ public class HashSetTest {
 
     @Test
     public void testContains() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         assertFalse(hashSet.contains(new HashItem(1)));
         hashSet.add(new HashItem(1));
         assertTrue(hashSet.contains(new HashItem(1)));
@@ -66,7 +66,7 @@ public class HashSetTest {
 
     @Test
     public void testRemove() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         hashSet.add(new HashItem(1));
         assertTrue(hashSet.contains(new HashItem(1)));
         assertTrue(hashSet.remove(new HashItem(1)));
@@ -74,20 +74,28 @@ public class HashSetTest {
     }
 
     @Test
-    public void testRemoveCollisions(){
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+    public void testRemoveEmpty() {
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+
+        assertFalse(hashSet.remove(new HashItem(1)));
+        assertEquals(0, hashSet.size());
+    }
+
+    @Test
+    public void testRemoveCollisions() {
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         hashSet.add(new HashItem(10, 10));
         hashSet.add(new HashItem(11, 10));
         hashSet.add(new HashItem(12, 10));
 
         assertEquals(3, hashSet.size());
-        assertTrue(hashSet.remove(new HashItem(12,10)));
+        assertTrue(hashSet.remove(new HashItem(12, 10)));
         assertEquals(2, hashSet.size());
     }
 
     @Test
     public void testRemoveNull() {
-        HashSet<HashItem> hashSet = new HashSet<HashItem>();
+        HashTable<HashItem> hashSet = new HashTable<HashItem>();
         assertFalse(hashSet.contains(new HashItem(1)));
         assertFalse(hashSet.remove(new HashItem(1)));
     }
