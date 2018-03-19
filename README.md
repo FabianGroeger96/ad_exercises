@@ -4,6 +4,7 @@
 * **SW01** - Übung: Einführung (E1)
 * **SW02** - Übung: Arrays, Listen, Stack und Queue (D1)
 * **SW03** - Übung: Bäume, Binärbäume und Suchbäume (D2)
+* **SW04** - Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
 
 ## Enhaltene Libraries (Dependencies)
 * Logging Framework - http://logging.apache.org/log4j/2.x/
