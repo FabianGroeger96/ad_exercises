@@ -34,6 +34,14 @@ public interface HashTableInterface<T> {
     public boolean contains(T item);
 
     /**
+     * Searches if a item exists in the hashtable
+     *
+     * @param item the item with the hashcode that will be searched
+     * @return index where the item is located
+     */
+    public int search(T item);
+
+    /**
      * Searches a item and returns its index
      *
      * @param item the item to search
@@ -47,4 +55,9 @@ public interface HashTableInterface<T> {
      * @return size of the hashtable
      */
     public int size();
+
+    /**
+     * Prints all the items in the hashtable
+     */
+    public void print();
 }

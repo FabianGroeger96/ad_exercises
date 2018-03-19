@@ -1,5 +1,8 @@
 package ch.hslu.AD.SW04.CollisionHashTable;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
  * Aufgabe: Hashtabelle mit Kollisionen
@@ -10,6 +13,7 @@ package ch.hslu.AD.SW04.CollisionHashTable;
 public class HashSet<T> implements HashTableInterface<T> {
 
     private static int DEFAULT_ARRAY_SIZE = 10;
+    private static final Logger LOGGER = LogManager.getLogger(HashSet.class);
 
     private T[] items;
 
@@ -20,26 +24,41 @@ public class HashSet<T> implements HashTableInterface<T> {
 
     @Override
     public boolean add(T item) {
-        int index = getIndex(item);
-        do {
-            if (items[index] != null) {
-                index = (index + 1) % DEFAULT_ARRAY_SIZE;
-            } else {
-                items[index] = item;
-                break;
-            }
-        } while (index != getIndex(item));
+        // Check if Set is full
+        if (size() == DEFAULT_ARRAY_SIZE){
+            return false;
+        } else {
+            int index = getIndex(item);
+            do {
+                if (items[index] != null) {
+                    if (items[index].equals(item)) {
+                        return false;
+                    } else {
+                        index = (index + 1) % DEFAULT_ARRAY_SIZE;
+                    }
+                } else {
+                    items[index] = item;
+                    return true;
+                }
+            } while (index != getIndex(item));
 
-        return true;
+            return true;
+        }
     }
 
     @Override
     public boolean remove(T item) {
-        if (contains(item)) {
-            items[getIndex(item)] = null;
-            return true;
-        } else {
+        // Check if Set is empty
+        if (size() == 0){
             return false;
+        } else{
+            int searchIndex = search(item);
+            if (searchIndex >= 0) {
+                items[searchIndex] = null;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -58,11 +77,34 @@ public class HashSet<T> implements HashTableInterface<T> {
                         index = (index + 1) % DEFAULT_ARRAY_SIZE;
                     }
                 } else {
-                    break;
+                    return false;
                 }
             } while (index != getIndex(item));
         }
         return items[getIndex(item)] != null;
+    }
+
+    @Override
+    public int search(T item) {
+        T itemArray = items[getIndex(item)];
+        if (item.equals(itemArray)) {
+            return getIndex(item);
+        } else {
+            int index = (getIndex(item) + 1) % DEFAULT_ARRAY_SIZE;
+            do {
+                if (items[index] != null) {
+                    if (items[index].equals(item)) {
+                        return index;
+                    } else {
+                        index = (index + 1) % DEFAULT_ARRAY_SIZE;
+                    }
+                } else {
+                    break;
+                }
+            } while (index != getIndex(item));
+        }
+        //return items[getIndex(item)] != null;
+        return -1;
     }
 
     @Override
@@ -79,6 +121,17 @@ public class HashSet<T> implements HashTableInterface<T> {
             }
         }
         return count;
+    }
+
+    @Override
+    public void print() {
+        for (int i = 0; (i < items.length); i++) {
+            if (items[i] != null){
+                LOGGER.info(i + ": " + items[i].toString());
+            } else {
+                LOGGER.info(i + ": ");
+            }
+        }
     }
 
     @Override
