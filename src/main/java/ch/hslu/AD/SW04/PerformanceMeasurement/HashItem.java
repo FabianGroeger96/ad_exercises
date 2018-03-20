@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class HashItem {
 
-    private static final Logger logger = LogManager.getLogger("CharWrapper");
+    private static final Logger LOGGER = LogManager.getLogger("CharWrapper");
 
     private final Character character;
 
@@ -26,6 +26,12 @@ public final class HashItem {
 
     @Override
     public boolean equals(Object other) {
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         boolean equality = false;
         if (other == null) {
             equality = false;
@@ -37,14 +43,20 @@ public final class HashItem {
             HashItem otherCharWrapper = (HashItem) other;
             equality = character.equals(otherCharWrapper.character);
         }
-        logger.debug(String.format("'%s'.equals('%s')? %s", this.toString(), other.toString(), equality));
+        LOGGER.debug(String.format("'%s'.equals('%s')? %s", this.toString(), other.toString(), equality));
         return equality;
     }
 
     @Override
     public int hashCode() {
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         int hashCode = character.hashCode();
-        logger.debug(String.format("'%s'.hashCode() == %d", this.toString(), hashCode));
+        LOGGER.debug(String.format("'%s'.hashCode() == %d", this.toString(), hashCode));
         return hashCode;
     }
 

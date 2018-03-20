@@ -14,15 +14,15 @@ public class HashTableLogging {
     @Test
     public void testAddRemoveOneEntry() {
         HashTable table = new HashTable();
-        table.put(new HashItem('a'));
+        table.add(new HashItem('a'));
         table.remove(new HashItem('a'));
     }
 
     @Test
     public void testAddRemoveTwoEntriesNoCollision() {
         HashTable table = new HashTable();
-        table.put(new HashItem('a'));
-        table.put(new HashItem('b'));
+        table.add(new HashItem('a'));
+        table.add(new HashItem('b'));
         table.remove(new HashItem('a'));
         table.remove(new HashItem('b'));
     }
@@ -30,9 +30,9 @@ public class HashTableLogging {
     @Test
     public void testAddRemoveThreeEntriesNoCollision() {
         HashTable table = new HashTable();
-        table.put(new HashItem('a'));
-        table.put(new HashItem('b'));
-        table.put(new HashItem('c'));
+        table.add(new HashItem('a'));
+        table.add(new HashItem('b'));
+        table.add(new HashItem('c'));
         table.remove(new HashItem('a'));
         table.remove(new HashItem('b'));
         table.remove(new HashItem('c'));
@@ -43,8 +43,8 @@ public class HashTableLogging {
         HashTable table = new HashTable();
         char first = 'a';
         char second = 'a' + HashTable.SIZE;
-        table.put(new HashItem(first));
-        table.put(new HashItem(second));
+        table.add(new HashItem(first));
+        table.add(new HashItem(second));
         table.remove(new HashItem(first));
         table.remove(new HashItem(second));
     }
@@ -55,9 +55,9 @@ public class HashTableLogging {
         char first = 'a';
         char second = 'a' + HashTable.SIZE;
         char third = 'a' + HashTable.SIZE * 2;
-        table.put(new HashItem(first));
-        table.put(new HashItem(second));
-        table.put(new HashItem(third));
+        table.add(new HashItem(first));
+        table.add(new HashItem(second));
+        table.add(new HashItem(third));
         table.remove(new HashItem(first));
         table.remove(new HashItem(second));
         table.remove(new HashItem(third));
@@ -71,10 +71,10 @@ public class HashTableLogging {
         char second = 'a' + HashTable.SIZE;
         char third = 'a' + HashTable.SIZE * 2;
         char fourth = 'a' + HashTable.SIZE * 3;
-        table.put(new HashItem(first));
-        table.put(new HashItem(second));
-        table.put(new HashItem(third));
-        table.put(new HashItem(fourth));
+        table.add(new HashItem(first));
+        table.add(new HashItem(second));
+        table.add(new HashItem(third));
+        table.add(new HashItem(fourth));
         table.remove(new HashItem(first));
         table.remove(new HashItem(second));
         table.remove(new HashItem(third));

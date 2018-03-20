@@ -21,7 +21,7 @@ public class HashTablePerformanceComparison {
         long start = System.currentTimeMillis();
         HashTable hashTable = new HashTable();
         for (char c = 0; c < TEST_SIZE; c++) {
-            hashTable.put(new HashItem(c));
+            hashTable.add(new HashItem(c));
         }
         Assert.assertEquals(TEST_SIZE, hashTable.getSize());
         for (char c = 0; c < TEST_SIZE; c++) {
