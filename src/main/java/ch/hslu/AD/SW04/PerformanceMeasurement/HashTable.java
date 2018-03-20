@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 public class HashTable {
 
-    public static final int SIZE = 20000;
+    public static final int SIZE = 1000;
 
     private HashItem entries[];
 
