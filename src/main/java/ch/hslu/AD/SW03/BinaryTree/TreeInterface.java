@@ -31,7 +31,7 @@ public interface TreeInterface<T extends Comparable<T>> {
     public boolean remove(T element);
 
     /**
-     * Returns true if this tree contains the specified element.
+     * Returns true if this tree search the specified element.
      *
      * @param element the element to search for.
      * @return whether the element was found

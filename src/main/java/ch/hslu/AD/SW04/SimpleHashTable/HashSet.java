@@ -25,7 +25,7 @@ public class HashSet implements HashTableInterface {
 
     @Override
     public boolean remove(HashItem item) {
-        if (contains(item)) {
+        if (search(item)) {
             items[getIndex(item)] = null;
             return true;
         } else {
@@ -34,7 +34,7 @@ public class HashSet implements HashTableInterface {
     }
 
     @Override
-    public boolean contains(HashItem item) {
+    public boolean search(HashItem item) {
         return items[getIndex(item)] != null;
     }
 

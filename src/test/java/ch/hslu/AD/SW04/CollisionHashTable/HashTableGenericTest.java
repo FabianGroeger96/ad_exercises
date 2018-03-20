@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class HashTableTest {
+public class HashTableGenericTest {
 
     @Test
     public void testAdd() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.add(new HashItem(2)));
         assertTrue(hashSet.add(new HashItem(3)));
@@ -18,7 +18,7 @@ public class HashTableTest {
 
     @Test
     public void testAddFull() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.add(new HashItem(2)));
         assertTrue(hashSet.add(new HashItem(3)));
@@ -37,7 +37,7 @@ public class HashTableTest {
 
     @Test
     public void testAddDuplicate() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         assertTrue(hashSet.add(new HashItem(1)));
         assertFalse(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.contains(new HashItem(1)));
@@ -46,7 +46,7 @@ public class HashTableTest {
 
     @Test
     public void testContainsCollisions() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         hashSet.add(new HashItem(10, 10));
         hashSet.add(new HashItem(11, 10));
         hashSet.add(new HashItem(12, 10));
@@ -58,7 +58,7 @@ public class HashTableTest {
 
     @Test
     public void testContains() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         assertFalse(hashSet.contains(new HashItem(1)));
         hashSet.add(new HashItem(1));
         assertTrue(hashSet.contains(new HashItem(1)));
@@ -66,7 +66,7 @@ public class HashTableTest {
 
     @Test
     public void testRemove() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         hashSet.add(new HashItem(1));
         assertTrue(hashSet.contains(new HashItem(1)));
         assertTrue(hashSet.remove(new HashItem(1)));
@@ -75,7 +75,7 @@ public class HashTableTest {
 
     @Test
     public void testRemoveEmpty() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
 
         assertFalse(hashSet.remove(new HashItem(1)));
         assertEquals(0, hashSet.size());
@@ -83,7 +83,7 @@ public class HashTableTest {
 
     @Test
     public void testRemoveCollisions() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         hashSet.add(new HashItem(10, 10));
         hashSet.add(new HashItem(11, 10));
         hashSet.add(new HashItem(12, 10));
@@ -95,7 +95,7 @@ public class HashTableTest {
 
     @Test
     public void testRemoveNull() {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         assertFalse(hashSet.contains(new HashItem(1)));
         assertFalse(hashSet.remove(new HashItem(1)));
     }

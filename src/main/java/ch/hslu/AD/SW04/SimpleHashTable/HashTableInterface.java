@@ -31,7 +31,7 @@ public interface HashTableInterface {
      * @param item the item with the hashcode that will be searched
      * @return if the hashcode exists
      */
-    public boolean contains(HashItem item);
+    public boolean search(HashItem item);
 
     /**
      * Searches a item and returns its index

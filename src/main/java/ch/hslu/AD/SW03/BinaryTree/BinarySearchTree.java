@@ -191,7 +191,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     /**
-     * Return whether the given (sub)tree contains the given element.
+     * Return whether the given (sub)tree search the given element.
      *
      * The tree is traversed in a pre-order fashion.
      *

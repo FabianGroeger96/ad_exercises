@@ -10,14 +10,14 @@ import org.apache.logging.log4j.Logger;
  * @author Fabian Gröger
  * @version 14.03.2018
  */
-public class HashTable<T> implements HashTableInterface<T> {
+public class HashTableGeneric<T> implements HashTableInterface<T> {
 
     private static int DEFAULT_ARRAY_SIZE = 10;
-    private static final Logger LOGGER = LogManager.getLogger(HashTable.class);
+    private static final Logger LOGGER = LogManager.getLogger(HashTableGeneric.class);
 
     private T[] items;
 
-    public HashTable() {
+    public HashTableGeneric() {
         final T[] items = (T[]) new Object[DEFAULT_ARRAY_SIZE];
         this.items = items;
     }

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class App {
 
-    private static final Logger LOGGER = LogManager.getLogger(HashTable.class);
+    private static final Logger LOGGER = LogManager.getLogger(HashTableGeneric.class);
 
     /**
      * Privater Konstruktor.
@@ -19,7 +19,12 @@ public class App {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        HashTable<HashItem> hashSet = new HashTable<HashItem>();
+        /**
+         * Hash table generic
+         * Not full implemented
+         * Problems with tombstones
+         */
+        HashTableGeneric<HashItem> hashSet = new HashTableGeneric<HashItem>();
         hashSet.add(new HashItem(10, 10));
         hashSet.add(new HashItem(11, 10));
         hashSet.add(new HashItem(12, 10));
@@ -30,19 +35,19 @@ public class App {
 
         LOGGER.info("----------");
 
-        hashSet.remove(new HashItem(11,10));
+        hashSet.remove(new HashItem(11, 10));
 
         hashSet.print();
 
         LOGGER.info("----------");
 
-        hashSet.remove(new HashItem(12,10));
+        hashSet.remove(new HashItem(12, 10));
 
         hashSet.print();
 
         LOGGER.info("----------");
 
-        hashSet.add(new HashItem(11,10));
+        hashSet.add(new HashItem(11, 10));
 
         hashSet.print();
     }

@@ -49,7 +49,7 @@ public class StackUtils {
          */
         long startStack = System.currentTimeMillis();
         Stack<Integer> stack = new Stack<Integer>(); // Initial size???
-        for (int n = 0; n < size; n++){
+        for (int n = 0; n < size; n++) {
             stack.push(array[n]);
         }
         long endStack = System.currentTimeMillis();
@@ -61,7 +61,7 @@ public class StackUtils {
          */
         long startMyStack = System.currentTimeMillis();
         ch.hslu.AD.SW04.StackImplementation.Stack myStack = new ch.hslu.AD.SW04.StackImplementation.Stack(size);
-        for (int n = 0; n < size; n++){
+        for (int n = 0; n < size; n++) {
             myStack.push(array[n]);
         }
         long endMyStack = System.currentTimeMillis();
