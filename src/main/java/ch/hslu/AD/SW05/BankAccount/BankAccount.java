@@ -1,13 +1,13 @@
 package ch.hslu.AD.SW05.BankAccount;
 
 /**
- * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
- * Aufgabe: Hashtabelle mit Buckets (Listen für Kollisionen)
+ * Übung: Threads & Synchronisation (N1)
+ * Aufgabe: Bankgeschäfte
  * <p>
  * Einfaches Bankkonto, das nur den Kontostand beinhaltet.
  *
  * @author Fabian Gröger
- * @version 19.03.2018
+ * @version 21.03.2018
  */
 public final class BankAccount {
 

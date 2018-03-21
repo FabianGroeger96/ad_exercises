@@ -7,7 +7,7 @@ package ch.hslu.AD.SW04.StackImplementation;
  * @author Fabian Gröger
  * @version 20.03.2018
  */
-public final class Stack {
+public final class MyStack {
 
     private final Integer stack[]; // the integer stack array
 
@@ -18,7 +18,7 @@ public final class Stack {
      *
      * @param size
      */
-    public Stack(int size) {
+    public MyStack(int size) {
         stack = new Integer[size];
     }
 

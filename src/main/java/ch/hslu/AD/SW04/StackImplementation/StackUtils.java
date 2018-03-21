@@ -60,7 +60,7 @@ public class StackUtils {
          * Create the my.stack and fill it with the elements from the array
          */
         long startMyStack = System.currentTimeMillis();
-        ch.hslu.AD.SW04.StackImplementation.Stack myStack = new ch.hslu.AD.SW04.StackImplementation.Stack(size);
+        MyStack myStack = new MyStack(size);
         for (int n = 0; n < size; n++) {
             myStack.push(array[n]);
         }
