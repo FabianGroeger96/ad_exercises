@@ -31,6 +31,19 @@ public final class HashItem {
         this.hashCode = hashCode;
     }
 
+    /**
+     * Checks if the hash item is a tombstone
+     *
+     * @return if it's a tombstone return true, if not false
+     */
+    public boolean isTombstone() {
+        if (this.value == -1 && this.hashCode == -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -63,6 +76,10 @@ public final class HashItem {
      */
     @Override
     public String toString() {
-        return "HashItem[Value:" + this.value + "; Size:" + this.hashCode + "]";
+        if (isTombstone()) {
+            return "HashItem[Tombstone]";
+        } else {
+            return "HashItem[Value:" + this.value + "; Size:" + this.hashCode + "]";
+        }
     }
 }

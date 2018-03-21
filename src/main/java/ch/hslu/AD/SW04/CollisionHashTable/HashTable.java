@@ -55,7 +55,7 @@ public class HashTable<T> implements HashTableInterface<T> {
             if (searchIndex >= 0) {
                 T nextItem = items[searchIndex + 1];
                 if (nextItem != null && nextItem.hashCode() == items[searchIndex].hashCode()) {
-                    items[searchIndex] = (T) new Object();
+                    items[searchIndex] = (T) new HashItem(-1, -1); // tombstone
                 } else {
                     items[searchIndex] = null;
                 }

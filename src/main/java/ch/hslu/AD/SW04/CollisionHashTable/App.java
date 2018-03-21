@@ -3,9 +3,16 @@ package ch.hslu.AD.SW04.CollisionHashTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Übung: Hashbasierte Datenstrukturen, Performance, Thirdparty-Datenstrukturen (D3)
+ * Aufgabe: Hashtabelle mit Kollisionen
+ *
+ * @author Fabian Gröger
+ * @version 14.03.2018
+ */
 public class App {
 
-    private static final Logger LOGGER = LogManager.getLogger(HashTable.class);
+    private static final Logger LOGGER = LogManager.getLogger(App.class);
 
     /**
      * Privater Konstruktor.

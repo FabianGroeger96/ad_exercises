@@ -31,7 +31,7 @@ public class StackUtils {
     }
 
     public static void main(String args[]) {
-        final int size = 1000000; // initial size
+        final int size = 10000000; // initial size
 
         /**
          * Create the array with initial size
