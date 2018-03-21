@@ -69,14 +69,14 @@ public class HashTable {
      */
     public Object get(final int hashCode) {
         int index = calculateIndex(hashCode);
-        if (items[index] == null) { // when nothing is at index return null
+        if (items[index] == null) { // when nothing is at index, return null
             return null;
         }
 
         Iterator<Object> iterator = items[index].iterator();
         while (iterator.hasNext()) {
             Object entry = iterator.next();
-            if (entry.hashCode() == hashCode) { // if hashcodes and the given one are the same return entry
+            if (entry.hashCode() == hashCode) { // if hash codes and the given one are the same, return entry
                 return entry;
             }
         }
@@ -90,9 +90,9 @@ public class HashTable {
      */
     public Collection<Object> getAllElements() {
         Collection<Object> allElements = new ArrayList<>();
-        for (int n = 0; n < items.length; n++) {
-            if (items[n] != null) { // if there is a list at the current index
-                Iterator<Object> listEntries = items[n].iterator(); // iterator of the list at the index
+        for (SingleLinkedList item : items) {
+            if (item != null) { // if there is a list at the current index
+                Iterator<Object> listEntries = item.iterator(); // iterator of the list at the index
                 while (listEntries.hasNext()) {
                     allElements.add(listEntries.next()); // adding the element to the collection
                 }

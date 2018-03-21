@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class HashTablePerformanceComparison {
 
-    private final static int TEST_SIZE = 10000;
+    private final static int TEST_SIZE = 1000;
 
     @Test
     public void testHashTablePerformance() {

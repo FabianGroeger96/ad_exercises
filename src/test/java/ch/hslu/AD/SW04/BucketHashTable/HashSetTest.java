@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class HashSetTest {
 
     @Test
-    public void testPutEntry() {
+    public void testAddEntry() {
         HashTable table = new HashTable();
         assertTrue(table.add("a"));
         assertTrue(table.add("b"));

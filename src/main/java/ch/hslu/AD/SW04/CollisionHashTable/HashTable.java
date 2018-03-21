@@ -10,25 +10,24 @@ import org.apache.logging.log4j.Logger;
  * @author Fabian Gröger
  * @version 14.03.2018
  */
-public class HashTableGeneric<T> implements HashTableInterface<T> {
+public class HashTable<T> implements HashTableInterface<T> {
 
     private static int DEFAULT_ARRAY_SIZE = 10;
-    private static final Logger LOGGER = LogManager.getLogger(HashTableGeneric.class);
+    private static final Logger LOGGER = LogManager.getLogger(HashTable.class);
 
     private T[] items;
 
-    public HashTableGeneric() {
-        final T[] items = (T[]) new Object[DEFAULT_ARRAY_SIZE];
-        this.items = items;
+    public HashTable() {
+        this.items = (T[]) new Object[DEFAULT_ARRAY_SIZE];
     }
 
     @Override
     public boolean add(T item) {
         // Check if Set is full
-        if (size() == DEFAULT_ARRAY_SIZE) {
+        if (isFull()) {
             return false;
         } else {
-            int index = getIndex(item);
+            int index = getIndex(item); // calculate index in the hash table
             do {
                 if (items[index] != null) { // tombstone not implemented
                     if (items[index].equals(item)) {
@@ -108,8 +107,7 @@ public class HashTableGeneric<T> implements HashTableInterface<T> {
                 }
             } while (index != getIndex(item));
         }
-        //return items[getIndex(item)] != null;
-        return -1;
+        return -1; // item wasn't found
     }
 
     @Override
@@ -129,6 +127,11 @@ public class HashTableGeneric<T> implements HashTableInterface<T> {
     }
 
     @Override
+    public boolean isFull() {
+        return size() == DEFAULT_ARRAY_SIZE;
+    }
+
+    @Override
     public void print() {
         for (int i = 0; (i < items.length); i++) {
             if (items[i] != null) {
@@ -141,6 +144,6 @@ public class HashTableGeneric<T> implements HashTableInterface<T> {
 
     @Override
     public String toString() {
-        return items.toString();
+        return "HashTable[Size:" + DEFAULT_ARRAY_SIZE + "; Actual size:" + size() + "]";
     }
 }

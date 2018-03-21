@@ -12,7 +12,6 @@ public class HashSetTest {
         assertTrue(hashSet.add(new HashItem(1)));
         assertTrue(hashSet.add(new HashItem(2)));
         assertTrue(hashSet.add(new HashItem(3)));
-        System.out.println(hashSet.toString());
     }
 
     @Test

@@ -15,7 +15,7 @@ public interface HashTableInterface<T> {
      * @param item item with the hashcode
      * @return if it worked
      */
-    public boolean add(T item);
+    boolean add(T item);
 
     /**
      * Removes a item the hashtable
@@ -23,7 +23,7 @@ public interface HashTableInterface<T> {
      * @param item item with the hashcode
      * @return if it worked
      */
-    public boolean remove(T item);
+    boolean remove(T item);
 
     /**
      * Searches if a item exists in the hashtable
@@ -31,7 +31,7 @@ public interface HashTableInterface<T> {
      * @param item the item with the hashcode that will be searched
      * @return if the hashcode exists
      */
-    public boolean contains(T item);
+    boolean contains(T item);
 
     /**
      * Searches if a item exists in the hashtable
@@ -39,7 +39,7 @@ public interface HashTableInterface<T> {
      * @param item the item with the hashcode that will be searched
      * @return index where the item is located
      */
-    public int search(T item);
+    int search(T item);
 
     /**
      * Searches a item and returns its index
@@ -47,17 +47,24 @@ public interface HashTableInterface<T> {
      * @param item the item to search
      * @return the index of the item
      */
-    public int getIndex(T item);
+    int getIndex(T item);
 
     /**
      * Returns the size of the hashtable
      *
      * @return size of the hashtable
      */
-    public int size();
+    int size();
+
+    /**
+     * Checks if the hashtable is full with elements
+     *
+     * @return if the hashtable is full
+     */
+    boolean isFull();
 
     /**
      * Prints all the items in the hashtable
      */
-    public void print();
+    void print();
 }
