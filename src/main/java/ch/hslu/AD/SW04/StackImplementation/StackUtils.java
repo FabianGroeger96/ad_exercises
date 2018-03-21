@@ -34,7 +34,7 @@ public class StackUtils {
         final int size = 10000000; // initial size
 
         /**
-         * Create the array with initial size
+         * Create the default array with initial size
          */
         long startArray = System.currentTimeMillis();
         Integer array[] = StackUtils.getSortedArray(size);
@@ -42,7 +42,7 @@ public class StackUtils {
 
         System.out.println("Size: " + array.length);
 
-        System.out.println("Created Array in: " + (endArray - startArray));
+        System.out.println("Created Array in: " + (endArray - startArray) + "ms");
 
         /**
          * Create the java.util.stack and fill it with the elements from the array
@@ -54,7 +54,7 @@ public class StackUtils {
         }
         long endStack = System.currentTimeMillis();
 
-        System.out.println("Created Java.Util.Stack in: " + (endStack - startStack));
+        System.out.println("Created Java.Util.Stack in: " + (endStack - startStack) + "ms");
 
         /**
          * Create the my.stack and fill it with the elements from the array
@@ -66,7 +66,7 @@ public class StackUtils {
         }
         long endMyStack = System.currentTimeMillis();
 
-        System.out.println("Created My.Stack in: " + (endMyStack - startMyStack));
+        System.out.println("Created My.Stack in: " + (endMyStack - startMyStack) + "ms");
 
         /**
          * Create the deque and fill it with the elements from the array
@@ -77,6 +77,6 @@ public class StackUtils {
             deque.push(array[n]);
         }
         long endDeque = System.currentTimeMillis();
-        System.out.println("Created Deque in: " + (endDeque - startDeque));
+        System.out.println("Created Deque in: " + (endDeque - startDeque) + "ms");
     }
 }
