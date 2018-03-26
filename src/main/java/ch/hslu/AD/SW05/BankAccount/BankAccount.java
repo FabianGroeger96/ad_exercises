@@ -36,8 +36,9 @@ public final class BankAccount {
 
     /**
      * Addiert zum bestehen Kontostand einen Betrag hinzu. * @param amount Einzuzahlender Betrag
+     * Synchronized
      */
-    public void deposite(final int amount) {
+    public synchronized void deposite(final int amount) {
         this.balance += amount;
     }
 
