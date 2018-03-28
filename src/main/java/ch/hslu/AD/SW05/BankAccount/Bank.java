@@ -32,8 +32,8 @@ public class Bank {
      */
     private void createAccounts(final int amountAccounts, final int initialBalance) {
         for (int i = 0; i < amountAccounts; i++) {
-            sourceAccounts.add(new BankAccount(initialBalance));
-            targetAccounts.add(new BankAccount(initialBalance));
+            sourceAccounts.add(new BankAccount(initialBalance, "Source Accounts"));
+            targetAccounts.add(new BankAccount(initialBalance, "Target Accounts"));
         }
     }
 

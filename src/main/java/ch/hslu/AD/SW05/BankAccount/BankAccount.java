@@ -4,7 +4,7 @@ package ch.hslu.AD.SW05.BankAccount;
  * Übung: Threads & Synchronisation (N1)
  * Aufgabe: Bankgeschäfte
  * <p>
- * Einfaches Bankkonto, das nur den Kontostand beinhaltet.
+ * Simple bank account, that only holds the balance and the name
  *
  * @author Fabian Gröger
  * @version 21.03.2018
@@ -12,43 +12,44 @@ package ch.hslu.AD.SW05.BankAccount;
 public final class BankAccount {
 
     private int balance;
+    private String name;
 
-    /**
-     * Erzeugt ein Bankkonto mit einem Anfangssaldo. * @param balance Anfangssaldo
-     */
-    public BankAccount(final int balance) {
+
+    public BankAccount(final int balance, final String name) {
         this.balance = balance;
+        this.name = name;
     }
 
-    /**
-     * Erzeugt ein Bankkonto mit Kontostand Null.
-     */
-    public BankAccount() {
-        this(0);
-    }
-
-    /**
-     * Gibt den aktuellen Kontostand zurück. * @return Kontostand.
-     */
     public int getBalance() {
         return this.balance;
     }
 
-    /**
-     * Addiert zum bestehen Kontostand einen Betrag hinzu. * @param amount Einzuzahlender Betrag
-     * Synchronized
-     */
     public synchronized void deposite(final int amount) {
         this.balance += amount;
     }
 
-    /**
-     * Überweist einen Betrag vom aktuellen Bankkonto an ein Ziel-Bankkonto. * @param target Bankkonto auf welches der Betrag überwiesen wird.
-     *
-     * @param amount zu überweisender Betrag.
-     */
     public void transfer(final BankAccount target, final int amount) {
-        this.balance -= amount;
+        synchronized (this) {
+            this.balance -= amount;
+        }
         target.deposite(amount);
+    }
+
+    /**
+     * Returns the name of the bank account
+     *
+     * @return name of the bank account
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Converts the bank account to a string
+     *
+     * @return string representation of the bank account
+     */
+    public String toString() {
+        return name + " (" + String.valueOf(balance) + ".-)";
     }
 }
