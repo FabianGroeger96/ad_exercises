@@ -1,4 +1,4 @@
-package ch.hslu.AD.SW05.ThreadEnd;
+package ch.hslu.AD.SW05.ThreadAbort;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +24,11 @@ public class AdditionTask implements Runnable {
         this.rangeEnd = rangeEnd;
     }
 
+    public void start() {
+        this.runThread = new Thread(this);
+        this.runThread.start();
+    }
+
     @Override
     public void run() {
         this.runThread = Thread.currentThread();
@@ -35,14 +40,14 @@ public class AdditionTask implements Runnable {
             try {
                 Thread.sleep(15);
             } catch (InterruptedException e) {
-                break;
+                e.printStackTrace();
             }
         }
 
         if (!isStopped) {
-            System.out.println(runThread.getName() + ": SUM" + (this.rangeBegin - this.rangeEnd) + " -> " + sum);
+            LOGGER.info(runThread.getName() + ": SUM from " + this.rangeBegin + " to " + this.rangeEnd + " = " + sum);
         } else {
-            System.out.println(runThread.getName() + ": interrupted.");
+            LOGGER.info(runThread.getName() + ": interrupted.");
         }
     }
 
@@ -52,5 +57,9 @@ public class AdditionTask implements Runnable {
         if (runThread != null) {
             runThread.interrupt();
         }
+    }
+
+    public boolean isStopped() {
+        return this.isStopped;
     }
 }

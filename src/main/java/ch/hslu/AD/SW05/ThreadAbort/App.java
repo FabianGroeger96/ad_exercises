@@ -1,4 +1,4 @@
-package ch.hslu.AD.SW05.ThreadEnd;
+package ch.hslu.AD.SW05.ThreadAbort;
 
 import java.util.ArrayList;
 import java.util.List;
