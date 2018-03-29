@@ -16,10 +16,10 @@ public class App {
         List<AdditionTask> tasks = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             AdditionTask task = new AdditionTask(i * 10, i * 100);
             tasks.add(task);
-            threads.add(new Thread(task));
+            threads.add(new Thread(task, "Task " + i));
         }
 
         threads.stream().forEach((t) -> t.start());
