@@ -1,5 +1,8 @@
 package ch.hslu.AD.SW05.BallGame;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -17,6 +20,8 @@ import java.util.Random;
  * @version 29.03.2018
  */
 public class DrawingArea extends JPanel {
+    private static final Logger LOGGER = LogManager.getLogger(DrawingArea.class);
+
     private final static int WIDTH = 650;
     private final static int HEIGHT = 500;
 
@@ -37,6 +42,7 @@ public class DrawingArea extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                createBall(e.getX(), e.getY());
             }
 
             @Override
@@ -60,7 +66,7 @@ public class DrawingArea extends JPanel {
         Ball ball = new Ball(x, y, radius, color, this);
         balls.add(ball);
         ball.start();
-        System.out.println("added ball, now " + balls.size() + " balls");
+        LOGGER.info("added ball, now " + balls.size() + " balls");
     }
 
     public void paintComponent(Graphics g) {
@@ -74,7 +80,7 @@ public class DrawingArea extends JPanel {
                 g2d.fill(ball.getCircle());
             } else {
                 ballIterator.remove();
-                System.out.println("removed ball, now " + balls.size() + " balls");
+                LOGGER.info("removed ball, now " + balls.size() + " balls");
             }
         }
     }

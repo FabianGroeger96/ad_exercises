@@ -10,15 +10,15 @@ import java.awt.*;
  * @author Fabian Gröger
  * @version 29.03.2018
  */
-public class FallingBalls extends JFrame {
+public class App extends JFrame {
     private DrawingArea area = new DrawingArea();
 
     public static void main(String args[]) {
-        new FallingBalls();
+        new App();
     }
 
-    public FallingBalls() {
-        super("Beschleunigt fallende Bälle unterschiedlicher Farben und Grössen");
+    public App() {
+        super("EX04 Ballspiele");
         getRootPane().setLayout(new GridBagLayout());
         getRootPane().add(area, new GridBagConstraints());
         pack();

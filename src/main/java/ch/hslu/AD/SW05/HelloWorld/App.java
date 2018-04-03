@@ -15,15 +15,15 @@ import java.util.List;
  * @author Fabian Gröger
  * @version 03.04.2018
  */
-public class HelloWorld extends JFrame {
+public class App extends JFrame {
     private DrawingArea area;
 
     public static void main(String[] args) {
-        new HelloWorld();
+        new App();
     }
 
-    public HelloWorld() {
-        super("Hello World");
+    public App() {
+        super("EX05 Hello World");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             List<Image> images = loadImages();
