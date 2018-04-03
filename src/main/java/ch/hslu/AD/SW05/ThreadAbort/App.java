@@ -12,6 +12,17 @@ import java.util.List;
  */
 public class App {
 
+    /**
+     * Privater Konstruktor.
+     */
+    private App() {
+    }
+
+    /**
+     * Main-Methode.
+     *
+     * @param args Startargumente.
+     */
     public static void main(String[] args) throws InterruptedException {
         List<AdditionTask> tasks = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();

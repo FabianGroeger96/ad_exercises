@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class AdditionTask implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(AdditionTask.class);
 
-    private static final boolean VIOLENT_STOP = false;
+    private static final boolean VIOLENT_STOP = false; // if the task will stop violently
 
     private Thread runThread; // thread
     private boolean isStopped = false; // true = stopped, false = running
@@ -43,7 +43,7 @@ public class AdditionTask implements Runnable {
     /**
      * Overrides the implementation of the runnable interface
      * specifies what the addition task does when it's running
-     *
+     * <p>
      * calculates the cross sum of a simple series of numbers
      */
     @Override
@@ -74,7 +74,7 @@ public class AdditionTask implements Runnable {
     public void stop() {
         isStopped = true;
 
-        if (VIOLENT_STOP){
+        if (VIOLENT_STOP) {
             runThread.stop();
             LOGGER.info("violent stop");
         } else {
@@ -88,9 +88,20 @@ public class AdditionTask implements Runnable {
 
     /**
      * Checks if the addition task is stopped
+     *
      * @return if the addition task is stopped
      */
     public boolean isStopped() {
         return this.isStopped;
+    }
+
+    /**
+     * Converts the addition task to a string
+     *
+     * @return string representation of the addition task
+     */
+    @Override
+    public String toString() {
+        return "AdditionTask [thread: " + this.runThread + ", isStopped: " + this.isStopped + ", rangeBegin: " + this.rangeBegin + ", rangeEnd: " + this.rangeEnd + ", violentStop: " + VIOLENT_STOP + "]";
     }
 }

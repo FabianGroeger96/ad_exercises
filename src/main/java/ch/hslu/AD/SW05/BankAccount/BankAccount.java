@@ -80,6 +80,6 @@ public final class BankAccount {
      */
     @Override
     public String toString() {
-        return "BankAccount [name: " + this.name + " balance: " + this.balance + "]";
+        return "BankAccount [name: " + this.name + ", balance: " + this.balance + "]";
     }
 }
