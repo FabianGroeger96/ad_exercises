@@ -18,13 +18,18 @@ public class JoinAndSleep extends Thread {
         super(runnable);
     }
 
+    /**
+     * Main-Methode.
+     *
+     * @param args Startargumente.
+     */
     public static void main(String[] args) {
         // creating thread 3
         JoinAndSleep thread3 = new JoinAndSleep(() -> {
             LOGGER.info("thread 3 active");
             try {
                 LOGGER.info("thread 3 sleeping");
-                Thread.sleep(4000);
+                Thread.sleep(4000); // thread must sleep for 4 seconds
                 LOGGER.info("thread 3 woke up");
             } catch (InterruptedException e) {
                 LOGGER.info("thread 3 interrupted");
@@ -36,11 +41,11 @@ public class JoinAndSleep extends Thread {
             LOGGER.info("thread 2 active");
             try {
                 LOGGER.info("thread 2 waiting for thread 3");
-                thread3.join();
+                thread3.join(); // puts the current thread on wait until the thread on which it’s called is dead
                 LOGGER.info("thread 2 done waiting for thread 3");
 
                 LOGGER.info("thread 2 sleeping");
-                Thread.sleep(3000);
+                Thread.sleep(3000); // thread must sleep for 3 seconds
                 LOGGER.info("thread 2 woke up");
 
             } catch (InterruptedException e) {
@@ -53,11 +58,11 @@ public class JoinAndSleep extends Thread {
             LOGGER.info("thread 1 active");
             try {
                 LOGGER.info("thread 1 waiting for thread 2");
-                thread2.join();
+                thread2.join(); // puts the current thread on wait until the thread on which it’s called is dead
                 LOGGER.info("thread 1 done waiting for thread 2");
 
                 LOGGER.info("thread 1 sleeping");
-                Thread.sleep(2000);
+                Thread.sleep(2000); // thread must sleep for 2 seconds
                 LOGGER.info("thread 1 woke up");
 
             } catch (InterruptedException e) {
@@ -69,6 +74,6 @@ public class JoinAndSleep extends Thread {
         thread2.start(); // starting thread 2
         thread3.start(); // starting thread 3
 
-        //t3.interrupt();
+        //t3.interrupt(); // sets the interrupted status/flag of the target thread
     }
 }
