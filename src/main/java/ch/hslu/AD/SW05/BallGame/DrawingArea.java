@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,12 +43,10 @@ public class DrawingArea extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                createBall(e.getX(), e.getY());
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
             }
 
             @Override
@@ -56,6 +55,18 @@ public class DrawingArea extends JPanel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+            }
+        });
+
+        addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                createBall(e.getX(), e.getY());
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
             }
         });
     }

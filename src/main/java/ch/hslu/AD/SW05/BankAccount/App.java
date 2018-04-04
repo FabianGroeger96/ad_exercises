@@ -26,11 +26,13 @@ public class App {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        Bank bank = new Bank(100, 10000);
+        // creates a Bank with an amount of accounts and an initial balance
+        Bank bank = new Bank(4, 10000);
 
         // start transfer
-        bank.startTransfers(1000, 5000);
+        bank.startTransfers(50000);
 
-        System.out.println(bank);
+        // output of the bank with the bank accounts
+        System.out.println(bank.toString());
     }
 }

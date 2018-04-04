@@ -32,41 +32,40 @@ public class Bank {
      */
     private void createAccounts(final int amountAccounts, final int initialBalance) {
         for (int i = 0; i < amountAccounts; i++) {
-            sourceAccounts.add(new BankAccount(initialBalance, "Source Accounts"));
-            targetAccounts.add(new BankAccount(initialBalance, "Target Accounts"));
+            sourceAccounts.add(new BankAccount(initialBalance, "Source Accounts " + i));
+            targetAccounts.add(new BankAccount(initialBalance, "Target Accounts " + i));
         }
     }
 
     /**
      * Starts the transactions
      *
-     * @param maxThreads the max. number of "mini" threads
-     * @param amount     the total amount to transfer
+     * @param amount the total amount to transfer
      */
-    public void startTransfers(final int maxThreads, final int amount) {
+    public void startTransfers(int amount) {
         List<Thread> threads = new ArrayList<>();
 
-        final int transferAmount = amount / maxThreads;
+        final int transferAmount = 1;
 
         //Setup threads
         for (int i = 0; i < sourceAccounts.size(); i++) {
             BankAccount sourceAccount = sourceAccounts.get(i);
             BankAccount targetAccount = targetAccounts.get(i);
 
-            for (int j = 0; i < maxThreads; i++) {
+            for (int j = 0; j < amount; j++) {
                 threads.add(new Thread(() -> sourceAccount.transfer(targetAccount, transferAmount)));
                 threads.add(new Thread(() -> targetAccount.transfer(sourceAccount, transferAmount)));
             }
         }
 
         threads.stream().forEach((thread) -> thread.start());
-        threads.stream().forEach((thread) -> {
+        threads.stream().forEach((thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
+        }));
     }
 
     /**

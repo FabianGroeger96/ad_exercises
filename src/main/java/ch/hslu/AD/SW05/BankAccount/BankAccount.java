@@ -1,17 +1,29 @@
 package ch.hslu.AD.SW05.BankAccount;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Übung: Threads & Synchronisation (N1)
  * Aufgabe: Bankgeschäfte
  * <p>
  * Simple bank account, that only holds the balance and the name
+ * <p>
+ * Möglichkeit die ganze Klasse sicher zu machen, dass kein Transfer falsch oder verlohren geht wenn man die Balance abruft geht nur über
+ * Lock Pool der Klasse [synchronized(BankAccount.class)]
  *
  * @author Fabian Gröger
  * @version 21.03.2018
  */
 public final class BankAccount {
 
-    private int balance; // balance of the bank account
+    private static final Logger LOGGER = LogManager.getLogger(BankAccount.class);
+
+    /*
+     * volatile
+     * garantiert, dass der Zustand immer aktuell ist, weil ein refresh auf dem Cache ausgeführt wird.
+     */
+    private volatile int balance; // balance of the bank account
     private String name; // name of the bank account
 
     /**
@@ -57,12 +69,23 @@ public final class BankAccount {
      * @param amount the amount that is transferred
      */
     public void transfer(final BankAccount target, final int amount) {
-        synchronized (this) {
+        /*
+        Lock pool: this (Instanz vom BankAccount)
+         */
+        synchronized (this) { // geschützter Bereich
             this.balance -= amount;
+            //Thread.yield(); // thread Wechsel (demo zweck)
         }
 
+        /*
+        Lock pool für deposite wird eine Instanz von target BankAccount genutzt
+        Nested Monitor -> Deadlock möglichkeiten wenn ganze transfer methode synchronized ist
+         */
         target.deposite(amount);
+
+        //LOGGER.info("Transfer amount: " + amount + " to bank account: " + target.toString());
     }
+
 
     /**
      * Returns the name of the bank account

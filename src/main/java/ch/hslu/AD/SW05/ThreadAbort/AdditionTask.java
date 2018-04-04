@@ -52,7 +52,7 @@ public class AdditionTask implements Runnable {
 
         long sum = 0;
 
-        for (int i = this.rangeBegin; i <= this.rangeEnd && !isStopped; i++) {
+        for (int i = this.rangeBegin; i <= this.rangeEnd && !isStopped(); i++) {
             sum += i;
             try {
                 Thread.sleep(15);
@@ -61,7 +61,7 @@ public class AdditionTask implements Runnable {
             }
         }
 
-        if (!isStopped) {
+        if (!isStopped()) {
             LOGGER.info(runThread.getName() + ": SUM from " + this.rangeBegin + " to " + this.rangeEnd + " = " + sum);
         } else {
             LOGGER.info(runThread.getName() + ": interrupted.");

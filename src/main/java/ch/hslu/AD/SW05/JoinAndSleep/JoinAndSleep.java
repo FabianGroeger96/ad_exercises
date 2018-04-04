@@ -26,47 +26,47 @@ public class JoinAndSleep extends Thread {
     public static void main(String[] args) {
         // creating thread 3
         JoinAndSleep thread3 = new JoinAndSleep(() -> {
-            LOGGER.info("thread 3 active");
+            LOGGER.info("thread 3: active");
             try {
-                LOGGER.info("thread 3 sleeping");
+                LOGGER.info("thread 3: sleeping");
                 Thread.sleep(4000); // thread must sleep for 4 seconds
-                LOGGER.info("thread 3 woke up");
+                LOGGER.info("thread 3: woke up");
             } catch (InterruptedException e) {
-                LOGGER.info("thread 3 interrupted");
+                LOGGER.info("thread 3: interrupted");
             }
         });
 
         // creating thread 2
         JoinAndSleep thread2 = new JoinAndSleep(() -> {
-            LOGGER.info("thread 2 active");
+            LOGGER.info("thread 2: active");
             try {
-                LOGGER.info("thread 2 waiting for thread 3");
+                LOGGER.info("thread 2: waiting for thread 3");
                 thread3.join(); // puts the current thread on wait until the thread on which it’s called is dead
-                LOGGER.info("thread 2 done waiting for thread 3");
+                LOGGER.info("thread 2: done waiting for thread 3");
 
-                LOGGER.info("thread 2 sleeping");
+                LOGGER.info("thread 2: sleeping");
                 Thread.sleep(3000); // thread must sleep for 3 seconds
-                LOGGER.info("thread 2 woke up");
+                LOGGER.info("thread 2: woke up");
 
             } catch (InterruptedException e) {
-                LOGGER.info("thread 2 interrupted");
+                LOGGER.info("thread 2: interrupted");
             }
         });
 
         // creating thread 1
         JoinAndSleep thread1 = new JoinAndSleep(() -> {
-            LOGGER.info("thread 1 active");
+            LOGGER.info("thread 1: active");
             try {
-                LOGGER.info("thread 1 waiting for thread 2");
+                LOGGER.info("thread 1: waiting for thread 2");
                 thread2.join(); // puts the current thread on wait until the thread on which it’s called is dead
-                LOGGER.info("thread 1 done waiting for thread 2");
+                LOGGER.info("thread 1: done waiting for thread 2");
 
-                LOGGER.info("thread 1 sleeping");
+                LOGGER.info("thread 1: sleeping");
                 Thread.sleep(2000); // thread must sleep for 2 seconds
-                LOGGER.info("thread 1 woke up");
+                LOGGER.info("thread 1: woke up");
 
             } catch (InterruptedException e) {
-                LOGGER.info("thread 1 interrupted");
+                LOGGER.info("thread 1: interrupted");
             }
         });
 

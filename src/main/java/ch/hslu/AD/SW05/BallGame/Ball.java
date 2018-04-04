@@ -28,7 +28,16 @@ public class Ball extends Thread implements Runnable {
     private boolean whited = false;
     private boolean interrupted = false;
 
-    public Ball(final int x, final int y, final int radius, final Color color, final DrawingArea drawingArea){
+    /**
+     * Creates a ball
+     *
+     * @param x           the x - coordinate of the ball
+     * @param y           the y - coordinate of the ball
+     * @param radius      the radius of the ball
+     * @param color       the color of the ball
+     * @param drawingArea the drawing area the ball is displayed
+     */
+    public Ball(final int x, final int y, final int radius, final Color color, final DrawingArea drawingArea) {
         this.circle = new Ellipse2D.Float(x, y, radius, radius);
         this.x = x;
         this.y = y;
@@ -38,9 +47,12 @@ public class Ball extends Thread implements Runnable {
         this.drawingArea = drawingArea;
     }
 
+    /**
+     * Overrides the run method
+     */
     @Override
-    public void run(){
-        while (!atTheBottom && !interrupted) {
+    public void run() {
+        while (!atTheBottom && !interrupted) { // if the ball is not at the bottom and is not interrupted
             drawingArea.repaint();
 
             if (y >= drawingArea.getHeight() - radius) {
@@ -59,11 +71,11 @@ public class Ball extends Thread implements Runnable {
             }
         }
 
-        while (!interrupted && !whited) {
+        while (!interrupted && !whited) { // if the ball is not whited and is not interrupted
             drawingArea.repaint();
             color = whitenColor(color, 1);
 
-            if (color.equals(Color.WHITE)) {
+            if (color.equals(Color.WHITE)) { // if the ball is white, set flag whited = true
                 whited = true;
             }
 
@@ -75,18 +87,41 @@ public class Ball extends Thread implements Runnable {
         }
     }
 
+    /**
+     * Returns the color of the ball
+     *
+     * @return color of the ball
+     */
     public Color getColor() {
         return this.color;
     }
 
+    /**
+     * Returns the circle of the ball
+     *
+     * @return circle of the ball
+     */
     public Ellipse2D getCircle() {
         return this.circle;
     }
 
+    /**
+     * Returns if the ball is done
+     * The ball is done if it's at the bottom and whited and not interrupted
+     *
+     * @return ball is done
+     */
     public boolean isDone() {
         return atTheBottom && whited & !interrupted;
     }
 
+    /**
+     * Whiten the color of the ball
+     *
+     * @param color the color that it should be in the end
+     * @param step  the step how much it should whiten
+     * @return the new color of the ball
+     */
     private Color whitenColor(Color color, int step) {
         int red = increase(color.getRed(), 255, step);
         int green = increase(color.getGreen(), 255, step);
@@ -94,6 +129,15 @@ public class Ball extends Thread implements Runnable {
         return new Color(red, green, blue);
     }
 
+    /**
+     * Helper method for whitenColor
+     * Increase the passed number with the step and checking if it's not the maximum
+     *
+     * @param number the number to increase
+     * @param max    the maximum of the passed number
+     * @param step   the amount to increase the passed number
+     * @return the calculated number
+     */
     private int increase(int number, int max, int step) {
         if (number < max) {
             return number + step;
