@@ -1,5 +1,6 @@
 package ch.hslu.AD.SW06.HorseRace;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -12,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  * @version 09.04.2018
  */
 public final class Turf {
-    private static final Logger LOG; //...ist zu initialisieren
+    private static final Logger LOG = LogManager.getLogger("HorseRace"); //...ist zu initialisieren
 
     public static void main(final String[] args) {
         Synch starterBox = new Latch();

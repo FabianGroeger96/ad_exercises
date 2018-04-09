@@ -1,5 +1,6 @@
 package ch.hslu.AD.SW06.HorseRace;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
@@ -15,7 +16,7 @@ import java.util.Random;
  * @version 09.04.2018
  */
 public final class RaceHorse implements Runnable {
-    private static final Logger LOG; //...ist zu initialisieren
+    private static final Logger LOG = LogManager.getLogger(); //...ist zu initialisieren
     private final Synch startSignal;
     private volatile Thread runThread;
     private final Random random;
