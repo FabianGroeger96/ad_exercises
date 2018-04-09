@@ -15,7 +15,7 @@
  */
 package ch.hslu.AD.examples.n22.executor;
 
-import ch.hslu.ad.n21.buffer.BoundedBuffer;
+import ch.hslu.AD.examples.n21.buffer.BoundedBuffer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
