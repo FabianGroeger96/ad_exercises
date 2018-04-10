@@ -16,7 +16,7 @@ import java.util.Random;
  * @version 09.04.2018
  */
 public final class RaceHorse implements Runnable {
-    private static final Logger LOG = LogManager.getLogger(); //...ist zu initialisieren
+    private static final Logger LOG = LogManager.getLogger();
     private final Synch startSignal;
     private volatile Thread runThread;
     private final Random random;
