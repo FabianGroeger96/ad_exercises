@@ -13,7 +13,7 @@ import java.util.List;
  * Eine Rennbahn.
  *
  * @author Fabian Gröger
- * @version 09.04.2018
+ * @version 11.04.2018
  */
 public final class Turf {
     private static final Logger LOG = LogManager.getLogger("HorseRace");

@@ -13,7 +13,7 @@ import java.util.Random;
  * Nach einer zufälligen Zeit kommt es im Ziel an.
  *
  * @author Fabian Gröger
- * @version 09.04.2018
+ * @version 11.04.2018
  */
 public final class RaceHorse implements Runnable {
     private static final Logger LOG = LogManager.getLogger();

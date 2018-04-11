@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
  * Aufgabe: Pferderennen
  *
  * @author Fabian Gröger
- * @version 09.04.2018
+ * @version 11.04.2018
  */
 public class Latch implements Synch {
     private static final Logger LOG = LogManager.getLogger("HorseRace");

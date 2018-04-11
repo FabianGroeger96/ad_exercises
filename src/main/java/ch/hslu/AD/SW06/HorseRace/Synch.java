@@ -7,7 +7,7 @@ package ch.hslu.AD.SW06.HorseRace;
  * Schnittstelle für die Zutrittsverwaltung geschützter Bereiche.
  *
  * @author Fabian Gröger
- * @version 09.04.2018
+ * @version 11.04.2018
  */
 public interface Synch {
     /**
