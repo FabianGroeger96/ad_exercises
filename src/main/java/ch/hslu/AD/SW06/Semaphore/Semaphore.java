@@ -66,4 +66,8 @@ public final class Semaphore {
         }
         return semaphore;
     }
+
+    public int getFree() {
+        return semaphore;
+    }
 }
