@@ -11,15 +11,15 @@ package ch.hslu.AD.SW06.WaitingPool;
  * @version 09.04.2018
  */
 public class DemoWaitPoolCorrected {
-    private static final Object lock = new Object();
+    private static final Object LOCK = new Object();
 
     public static void main(String[] args) throws InterruptedException {
-        synchronized (lock) {
-            MyTask waiter = new MyTask(lock);
-            new Thread(waiter).start();
-            Thread.sleep(1000);
+        MyTask waiter = new MyTask(LOCK);
+        new Thread(waiter).start();
+        Thread.sleep(1000);
 
-            lock.notify();
+        synchronized (LOCK) {
+            LOCK.notify();
         }
     }
 }

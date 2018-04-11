@@ -13,17 +13,15 @@ import org.apache.logging.log4j.Logger;
 public class Latch implements Synch {
     private static final Logger LOG = LogManager.getLogger("HorseRace");
 
-    private final int totalSlots;
-    private int slotsFilled;
     private boolean started = false;
 
     private Thread timeout;
 
-    //private int count;
+    private int count;
 
     public Latch(int totalSlots) {
-        this.totalSlots = totalSlots;
-        //this.count = 1;
+        //this.totalSlots = totalSlots;
+        this.count = 1;
 
         timeout = new Thread(() -> {
             LOG.info("Automatischer Start in 1000ms...");
@@ -40,18 +38,10 @@ public class Latch implements Synch {
 
     @Override
     public synchronized void acquire() throws InterruptedException {
-        if (this.slotsFilled < this.totalSlots) { // if there is space
-            this.slotsFilled++;
-            if (this.slotsFilled == this.totalSlots) { // if all slots are filled
-                this.timeout.start();
-            }
-            this.wait();
+        while (count > 0) {
+            timeout.start();
+            wait();
         }
-
-//        while (count > 0){
-//            timeout.start();
-//            this.wait();
-//        }
     }
 
     @Override
@@ -61,24 +51,11 @@ public class Latch implements Synch {
             return;
         }
 
-        while (this.slotsFilled < this.totalSlots) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
         if (!started) { // if the race is not started
             this.started = true;
-            this.timeout.interrupt();
-            this.notifyAll();
+            timeout.interrupt();
+            notifyAll();
+            this.count--;
         }
-
-        LOG.info("Start ...");
-
-//        this.timeout.interrupt();
-//        this.notifyAll();
-//        this.count--;
     }
 }
