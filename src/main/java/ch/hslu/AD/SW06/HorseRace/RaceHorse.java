@@ -38,7 +38,9 @@ public final class RaceHorse implements Runnable {
             LOG.info("Rennpferd " + runThread.getName() + " laeuft los...");
             Thread.sleep(random.nextInt(3000));
         } catch (InterruptedException ex) {
-            LOG.debug(ex);
+            LOG.info("Rennpferd " + runThread.getName() + " bricht ab.");
+            //LOG.debug(ex);
+            return;
         }
         LOG.info("Rennpferd " + runThread.getName() + " ist im Ziel.");
     }
