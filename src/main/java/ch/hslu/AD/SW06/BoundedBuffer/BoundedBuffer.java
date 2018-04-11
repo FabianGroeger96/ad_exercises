@@ -2,8 +2,6 @@ package ch.hslu.AD.SW06.BoundedBuffer;
 
 import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Übung: Thread Steuerung (N2)
@@ -19,9 +17,6 @@ public class BoundedBuffer<T> {
     private int usedSize;
     private T[] buffer;
 
-    private Semaphore putSemaphore;
-    private Semaphore getSemaphore;
-
     /**
      * Default Konstruktor
      * Erstellt einen Ringbuffer mit max. Grösse 8
@@ -29,9 +24,6 @@ public class BoundedBuffer<T> {
     public BoundedBuffer() {
         this.maxSize = 8;
         buffer = (T[]) new Object[maxSize];
-
-        this.getSemaphore = new Semaphore(0);
-        this.putSemaphore = new Semaphore(8);
     }
 
     /**
@@ -42,9 +34,6 @@ public class BoundedBuffer<T> {
     public BoundedBuffer(final int maxSize) {
         this.maxSize = maxSize;
         buffer = (T[]) new Object[maxSize];
-
-        this.getSemaphore = new Semaphore(0);
-        this.putSemaphore = new Semaphore(maxSize);
     }
 
     /**
@@ -74,30 +63,45 @@ public class BoundedBuffer<T> {
         return usedSize;
     }
 
-    public void put(final T element) throws InterruptedException {
-        putSemaphore.acquire();
-        enqueue(element);
-        getSemaphore.release();
+    public synchronized void put(final T element) throws InterruptedException {
+        while (full()) {
+            System.out.println("buffer is full, put() has to wait");
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
+            }
+        }
+        boolean wasEmpty = empty();
+        putElement(element);
+        if (wasEmpty) {
+            System.out.println("buffer is not empty any longer, get() can continue");
+            this.notifyAll();
+        }
     }
 
-    public void put(final T element, final long timeoutMills) throws InterruptedException {
-        putSemaphore.tryAcquire(timeoutMills, TimeUnit.MILLISECONDS);
-        enqueue(element);
-        getSemaphore.release();
+    public synchronized T get() throws InterruptedException {
+        while (empty()) {
+            System.out.println("buffer is empty, get() has to wait");
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
+            }
+        }
+        return getElement();
     }
 
-    public T get() throws InterruptedException {
-        getSemaphore.acquire();
-        T element = dequeue();
-        putSemaphore.release();
-        return element;
-    }
-
-    public T get(final long timeoutMills) throws InterruptedException {
-        getSemaphore.tryAcquire(timeoutMills, TimeUnit.MILLISECONDS);
-        T element = dequeue();
-        putSemaphore.release();
-        return element;
+    public synchronized T get(final long timeoutMills) throws InterruptedException {
+        while (empty()) {
+            System.out.println("buffer is empty, get(int millis) has to wait");
+            try {
+                this.wait(timeoutMills);
+            } catch (InterruptedException e) {
+                System.err.println("interrupted: " + e.getMessage());
+            }
+        }
+        return getElement();
     }
 
     /**
@@ -106,7 +110,7 @@ public class BoundedBuffer<T> {
      * @param element Element zum anhängen
      * @return ob der Vorgang geklappt hat
      */
-    public synchronized boolean enqueue(final T element) {
+    public synchronized boolean putElement(final T element) {
         if (full()) { // Wenn der Buffer voll ist, können wir nichts anhängen, weil wir nichts überschrieben
             throw new BufferOverflowException();
         }
@@ -121,7 +125,7 @@ public class BoundedBuffer<T> {
      *
      * @return das entnommene Element
      */
-    public synchronized T dequeue() {
+    public synchronized T getElement() {
         if (empty()) { // Wenn der Buffer leer ist, kann nichts ausgelesen werden
             throw new BufferUnderflowException();
         }
