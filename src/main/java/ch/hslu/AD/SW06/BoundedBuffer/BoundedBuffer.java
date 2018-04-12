@@ -1,8 +1,5 @@
 package ch.hslu.AD.SW06.BoundedBuffer;
 
-import java.nio.BufferOverflowException;
-import java.nio.BufferUnderflowException;
-
 /**
  * Übung: Thread Steuerung (N2)
  * Aufgabe: Bounded Buffer
@@ -63,61 +60,26 @@ public class BoundedBuffer<T> {
         return usedSize;
     }
 
-    public synchronized void put(final T element) throws InterruptedException {
-        while (full()) {
-            System.out.println("buffer is full, put() has to wait");
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                System.err.println("interrupted: " + e.getMessage());
-            }
-        }
-        boolean wasEmpty = empty();
-        putElement(element);
-        if (wasEmpty) {
-            System.out.println("buffer is not empty any longer, get() can continue");
-            this.notifyAll();
-        }
-    }
-
-    public synchronized T get() throws InterruptedException {
-        while (empty()) {
-            System.out.println("buffer is empty, get() has to wait");
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                System.err.println("interrupted: " + e.getMessage());
-            }
-        }
-        return getElement();
-    }
-
-    public synchronized T get(final long timeoutMills) throws InterruptedException {
-        while (empty()) {
-            System.out.println("buffer is empty, get(int millis) has to wait");
-            try {
-                this.wait(timeoutMills);
-            } catch (InterruptedException e) {
-                System.err.println("interrupted: " + e.getMessage());
-            }
-        }
-        return getElement();
-    }
-
     /**
      * Anhängen eines Elements am Ende
      *
      * @param element Element zum anhängen
      * @return ob der Vorgang geklappt hat
      */
-    public synchronized boolean putElement(final T element) {
-        if (full()) { // Wenn der Buffer voll ist, können wir nichts anhängen, weil wir nichts überschrieben
-            throw new BufferOverflowException();
+    public synchronized void put(final T element) throws InterruptedException {
+        while (full()) {
+            System.out.println("buffer is full, put() has to wait");
+            wait();
         }
-        buffer[this.indexBottom] = element;
-        this.indexBottom = (this.indexBottom + 1) % this.buffer.length;
-        this.usedSize++;
-        return true;
+
+        usedSize++;
+        buffer[indexBottom] = element;
+        indexBottom = (indexBottom + 1) % buffer.length;
+
+        if (usedSize == 1) {
+            System.out.println("buffer is not empty any longer, get() can continue");
+            notifyAll();
+        }
     }
 
     /**
@@ -125,18 +87,47 @@ public class BoundedBuffer<T> {
      *
      * @return das entnommene Element
      */
-    public synchronized T getElement() {
-        if (empty()) { // Wenn der Buffer leer ist, kann nichts ausgelesen werden
-            throw new BufferUnderflowException();
+    public synchronized T get() throws InterruptedException {
+        while (empty()) {
+            System.out.println("buffer is empty, get() has to wait");
+            wait();
         }
 
-        T element = buffer[this.indexHead];
-        buffer[this.indexHead] = null;
+        usedSize--;
+        T obj = (T) buffer[indexHead];
+        buffer[indexHead] = null;
+        indexHead = (indexHead + 1) % buffer.length;
 
-        this.indexHead = (this.indexHead + 1) % this.buffer.length;
-        this.usedSize--;
+        if (usedSize == buffer.length - 1) {
+            notifyAll();
+        }
 
-        return element;
+        return obj;
+    }
+
+    /**
+     * Entnehmen eines Elements am Anfang mit TimeOut
+     *
+     * @param timeoutMills TimeOut in milli Sekunden
+     * @return das entnommene Element
+     * @throws InterruptedException
+     */
+    public synchronized T get(final long timeoutMills) throws InterruptedException {
+        while (empty()) {
+            System.out.println("buffer is empty, get(int millis) has to wait");
+            wait(timeoutMills);
+        }
+
+        usedSize--;
+        T obj = (T) buffer[indexHead];
+        buffer[indexHead] = null;
+        indexHead = (indexHead + 1) % buffer.length;
+
+        if (usedSize == buffer.length - 1) {
+            notifyAll();
+        }
+
+        return obj;
     }
 
     /**

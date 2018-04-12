@@ -40,6 +40,7 @@ public class BoundedBufferTest {
     @Test
     public void testProducerConsumer() throws InterruptedException {
         BoundedBuffer<String> buf = new BoundedBuffer<>(BUFFER_CAPACITY);
+
         Thread producer = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -53,6 +54,7 @@ public class BoundedBufferTest {
                 }
             }
         });
+
         Thread consumer = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,8 +68,10 @@ public class BoundedBufferTest {
                 }
             }
         });
+
         producer.start();
         consumer.start();
+
         try {
             producer.join();
             consumer.join();
@@ -93,6 +97,7 @@ public class BoundedBufferTest {
                 }
             }
         });
+
         Runnable consumerRunnable = new Runnable() {
             @Override
             public void run() {
@@ -105,6 +110,7 @@ public class BoundedBufferTest {
                 }
             }
         };
+
         Thread consumer1 = new Thread(consumerRunnable);
         Thread consumer2 = new Thread(consumerRunnable);
         producer.start();
