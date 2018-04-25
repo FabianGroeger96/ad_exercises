@@ -45,6 +45,12 @@ public class Sort {
         System.arraycopy(dummyArray, 1, a, 0, a.length); // copy array back to source array
     }
 
+    /**
+     * Sortiert das int-Array aufsteigend, mit direktem Einfügen (insertion sort)
+     * Suche nach der nächsten freien stelle wird mit binärer Suche realisiert
+     *
+     * @param a Zu sortierendes Array.
+     */
     public static void binaryInsertionSort(final Integer[] a) {
         for (int i = 1; i < a.length; i++) {
             int x = a[i];

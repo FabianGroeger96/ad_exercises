@@ -104,14 +104,12 @@ public class SortTest {
 
     @Test
     public void testSelectionSortTime() {
-        LOG.info("Selection sort:");
-
         // test with a big array sorted
         start = System.currentTimeMillis();
         Sort.selectionSort(bigArraySorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array sorted: " + (end - start));
+        LOG.info("Selection sort - Big array sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArraySorted, Order.ASCENDING);
 
@@ -120,7 +118,7 @@ public class SortTest {
         Sort.selectionSort(bigArrayReverseSorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array reverse sorted: " + (end - start));
+        LOG.info("Selection sort - Big array reverse sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
 
@@ -129,21 +127,19 @@ public class SortTest {
         Sort.selectionSort(bigArrayUnsorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array unsorted: " + (end - start));
+        LOG.info("Selection sort - Big array unsorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
     }
 
     @Test
     public void testBubbleSortTime() {
-        LOG.info("Bubble sort:");
-
         // test with a big array sorted
         start = System.currentTimeMillis();
         Sort.bubbleSort(bigArraySorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array sorted: " + (end - start));
+        LOG.info("Bubble sort - Big array sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArraySorted, Order.ASCENDING);
 
@@ -152,7 +148,7 @@ public class SortTest {
         Sort.bubbleSort(bigArrayReverseSorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array reverse sorted: " + (end - start));
+        LOG.info("Bubble sort - Big array reverse sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
 
@@ -161,21 +157,19 @@ public class SortTest {
         Sort.bubbleSort(bigArrayUnsorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array unsorted: " + (end - start));
+        LOG.info("Bubble sort - Big array unsorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
     }
 
     @Test
     public void testShellSortTime() {
-        LOG.info("Shell sort:");
-
         // test with a big array sorted
         start = System.currentTimeMillis();
         Sort.shellSort(bigArraySorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array sorted: " + (end - start));
+        LOG.info("Shell sort - Big array sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArraySorted, Order.ASCENDING);
 
@@ -184,7 +178,7 @@ public class SortTest {
         Sort.shellSort(bigArrayReverseSorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array reverse sorted: " + (end - start));
+        LOG.info("Shell sort - Big array reverse sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
 
@@ -193,7 +187,7 @@ public class SortTest {
         Sort.shellSort(bigArrayUnsorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array unsorted: " + (end - start));
+        LOG.info("Shell sort - Big array unsorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
     }
