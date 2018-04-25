@@ -21,11 +21,6 @@ public class SortTest {
     private static final int ARRAY_SIZE = 50000;
     private static final Logger LOG = LogManager.getLogger(SortTest.class);
 
-    private Integer[] sortedNumbers;
-    private Integer[] reverseSortedNumbers;
-    private Integer[] unsortedNumbers;
-    private Integer[] singleNumber;
-
     private Integer[] bigArraySorted;
     private Integer[] bigArrayReverseSorted;
     private Integer[] bigArrayUnsorted;
@@ -35,11 +30,6 @@ public class SortTest {
 
     @Before
     public void setup() {
-        sortedNumbers = new Integer[]{1, 2, 3, 4, 5, 6};
-        reverseSortedNumbers = new Integer[]{6, 5, 4, 3, 2, 1};
-        unsortedNumbers = new Integer[]{4, 6, 1, 3, 2, 5};
-        singleNumber = new Integer[]{0};
-
         bigArraySorted = new Integer[ARRAY_SIZE];
         bigArrayReverseSorted = new Integer[ARRAY_SIZE];
         bigArrayUnsorted = new Integer[ARRAY_SIZE];
@@ -53,34 +43,13 @@ public class SortTest {
     }
 
     @Test
-    public void testInsertionSort() {
-        // test with sorted array
-        Sort.insertionSort(sortedNumbers);
-        assertIsSorted(sortedNumbers, Order.ASCENDING);
-
-        // test with reverse sorted array
-        Sort.insertionSort(reverseSortedNumbers);
-        assertIsSorted(reverseSortedNumbers, Order.ASCENDING);
-
-        // test with unsorted array
-        Sort.insertionSort(unsortedNumbers);
-        assertIsSorted(unsortedNumbers, Order.ASCENDING);
-
-        // test with only one number
-        Sort.insertionSort(singleNumber);
-        assertIsSorted(singleNumber, Order.ASCENDING);
-    }
-
-    @Test
     public void testInsertionSortTime() {
-        LOG.info("Insertion sort:");
-
         // test with a big array sorted
         start = System.currentTimeMillis();
         Sort.insertionSort(bigArraySorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array sorted: " + (end - start));
+        LOG.info("Insertion sort - Big array sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArraySorted, Order.ASCENDING);
 
@@ -89,7 +58,7 @@ public class SortTest {
         Sort.insertionSort(bigArrayReverseSorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array reverse sorted: " + (end - start));
+        LOG.info("Insertion sort - Big array reverse sorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
 
@@ -98,28 +67,39 @@ public class SortTest {
         Sort.insertionSort(bigArrayUnsorted);
         end = System.currentTimeMillis();
 
-        LOG.info("Big array unsorted: " + (end - start));
+        LOG.info("Insertion sort - Big array unsorted: " + (end - start));
         // check if array was correctly sorted
         assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
     }
 
     @Test
-    public void testSelectionSort() {
-        // test with sorted array
-        Sort.selectionSort(sortedNumbers);
-        assertIsSorted(sortedNumbers, Order.ASCENDING);
+    public void testBinaryInsertionSortTime() {
+        // test with a big array sorted
+        start = System.currentTimeMillis();
+        Sort.binaryInsertionSort(bigArraySorted);
+        end = System.currentTimeMillis();
 
-        // test with reverse sorted array
-        Sort.selectionSort(reverseSortedNumbers);
-        assertIsSorted(reverseSortedNumbers, Order.ASCENDING);
+        LOG.info("Binary Insertion sort - Big array sorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArraySorted, Order.ASCENDING);
 
-        // test with unsorted array
-        Sort.selectionSort(unsortedNumbers);
-        assertIsSorted(unsortedNumbers, Order.ASCENDING);
+        // test with a big array reverse sorted
+        start = System.currentTimeMillis();
+        Sort.binaryInsertionSort(bigArrayReverseSorted);
+        end = System.currentTimeMillis();
 
-        // test with only one number
-        Sort.selectionSort(singleNumber);
-        assertIsSorted(singleNumber, Order.ASCENDING);
+        LOG.info("Binary Insertion sort - Big array reverse sorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
+
+        // test with a big array unsorted
+        start = System.currentTimeMillis();
+        Sort.binaryInsertionSort(bigArrayUnsorted);
+        end = System.currentTimeMillis();
+
+        LOG.info("Binary Insertion sort - Big array unsorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
     }
 
     @Test
@@ -155,25 +135,6 @@ public class SortTest {
     }
 
     @Test
-    public void testBubbleSort() {
-        // test with sorted array
-        Sort.bubbleSort(sortedNumbers);
-        assertIsSorted(sortedNumbers, Order.ASCENDING);
-
-        // test with reverse sorted array
-        Sort.bubbleSort(reverseSortedNumbers);
-        assertIsSorted(reverseSortedNumbers, Order.ASCENDING);
-
-        // test with unsorted array
-        Sort.bubbleSort(unsortedNumbers);
-        assertIsSorted(unsortedNumbers, Order.ASCENDING);
-
-        // test with only one number
-        Sort.bubbleSort(singleNumber);
-        assertIsSorted(singleNumber, Order.ASCENDING);
-    }
-
-    @Test
     public void testBubbleSortTime() {
         LOG.info("Bubble sort:");
 
@@ -198,6 +159,38 @@ public class SortTest {
         // test with a big array unsorted
         start = System.currentTimeMillis();
         Sort.bubbleSort(bigArrayUnsorted);
+        end = System.currentTimeMillis();
+
+        LOG.info("Big array unsorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArrayUnsorted, Order.ASCENDING);
+    }
+
+    @Test
+    public void testShellSortTime() {
+        LOG.info("Shell sort:");
+
+        // test with a big array sorted
+        start = System.currentTimeMillis();
+        Sort.shellSort(bigArraySorted);
+        end = System.currentTimeMillis();
+
+        LOG.info("Big array sorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArraySorted, Order.ASCENDING);
+
+        // test with a big array reverse sorted
+        start = System.currentTimeMillis();
+        Sort.shellSort(bigArrayReverseSorted);
+        end = System.currentTimeMillis();
+
+        LOG.info("Big array reverse sorted: " + (end - start));
+        // check if array was correctly sorted
+        assertIsSorted(bigArrayReverseSorted, Order.ASCENDING);
+
+        // test with a big array unsorted
+        start = System.currentTimeMillis();
+        Sort.shellSort(bigArrayUnsorted);
         end = System.currentTimeMillis();
 
         LOG.info("Big array unsorted: " + (end - start));
