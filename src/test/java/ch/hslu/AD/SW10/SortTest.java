@@ -18,7 +18,7 @@ public class SortTest {
     private static final int ARRAY_ELEMENTS[] = {1_000, 5_000, 10_000, 50_000, 100_000, 500_000};
     private static final int ARRAY_MS[] = {5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 500, 1_000};
     private static final int DEFAULT_SIZE = 100_000;
-    private static final int DEFAULT_M = 25;
+    private static final int DEFAULT_M = 50;
     private static final Logger LOG = LogManager.getLogger(SortTest.class);
 
     private Character[] charArray;
@@ -89,7 +89,7 @@ public class SortTest {
         LOG.info(String.format("%10s %20s %30s", "Elements", "Quick Sort", "Quick insertion sort"));
 
         for (int n : ARRAY_ELEMENTS) {
-            Character data[] = SortUtils.randomChars(DEFAULT_SIZE);
+            Character data[] = SortUtils.randomChars(n);
 
             long startQuickSort = System.currentTimeMillis();
             Sort.quickSort(data);

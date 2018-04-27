@@ -197,7 +197,7 @@ public class Sort {
         if (left < up - 1) {
             int from = left;
             int to = up - 1;
-            if (to - from + 1 >= m) {
+            if (to - from + 1 > m) {
                 quickInsertionSort(data, from, to, m);
             } else {
                 insertionSort(data, from, to);
@@ -206,7 +206,7 @@ public class Sort {
         if (right > up + 1) {
             int from = up + 1;
             int to = right;
-            if (to - from + 1 >= m) {
+            if (to - from + 1 > m) {
                 quickInsertionSort(data, from, to, m);
             } else {
                 insertionSort(data, from, to);
