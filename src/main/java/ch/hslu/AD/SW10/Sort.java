@@ -11,91 +11,77 @@ import java.util.Arrays;
 public class Sort {
 
     /**
-     * Sortiert das int‐Array aufsteigend, mit direktem Einfügen (insertion sort)
+     * Sortiert das generische Array aufsteigend, mit direktem Einfügen (insertion sort)
      *
-     * @param a Zu sortierendes Array.
+     * @param data Zu sortierendes Array
+     * @param from startindex zum Sortieren
+     * @param to   endindex zum Sortieren
+     * @param <T>  generisch Implementiert
      */
-    public static void insertionSort(final Integer[] a) {
-        int elt;
-        int j;
-
-        // Initialize a new array that is bigger than the given
-        // the new array will be used to store the dummy element on the first position
-        Integer[] dummyArray = new Integer[a.length + 1];
-        System.arraycopy(a, 0, dummyArray, 1, a.length);
-
-        for (int i = 2; i < dummyArray.length; i++) {
-            elt = dummyArray[i]; // next elt for insert
-            dummyArray[0] = elt; // dummy - element
-            j = i; // a[1] ... a[j-1] already sorted
-
-            while (dummyArray[j - 1] > elt) {
-                dummyArray[j] = dummyArray[j - 1]; // shift right
-                j--; // go further left
+    public static <T> void insertionSort(Comparable<T> data[], int from, int to) {
+        for (int outerloop = from + 1; outerloop <= to; outerloop++) {
+            for (int innerloop = outerloop; innerloop > 0 && data[innerloop].compareTo((T) data[innerloop - 1]) < 0; innerloop--) {
+                exchange(data, innerloop, innerloop - 1); // tauschen des Elements mit dem vorherigen
             }
-
-            dummyArray[j] = elt; // insert elt
-        } // a[1] ... a[j] sorted
-
-        System.arraycopy(dummyArray, 1, a, 0, a.length); // copy array back to source array
+        }
     }
 
     /**
      * Sortiert das int-Array aufsteigend, mit direktem Einfügen (insertion sort)
      * Suche nach der nächsten freien stelle wird mit binärer Suche realisiert
      *
-     * @param a Zu sortierendes Array.
+     * @param data Zu sortierendes Array.
      */
-    public static void binaryInsertionSort(final Integer[] a) {
-        for (int i = 1; i < a.length; i++) {
-            int x = a[i];
+    public static void binaryInsertionSort(final Integer[] data) {
+        for (int i = 1; i < data.length; i++) {
+            int x = data[i];
 
             // Find location to insert using binary search
-            int j = Math.abs(Arrays.binarySearch(a, 0, i, x) + 1);
+            int j = Math.abs(Arrays.binarySearch(data, 0, i, x) + 1);
 
             //Shifting array to one location right
-            System.arraycopy(a, j, a, j + 1, i - j);
+            System.arraycopy(data, j, data, j + 1, i - j);
 
             //Placing element at its correct location
-            a[j] = x;
+            data[j] = x;
         }
     }
 
     /**
      * Sortiert das int-Array aufsteigend, mit direktem Auswählen (selection sort)
      *
-     * @param a Zu sortierendes Array.
+     * @param data Zu sortierendes Array.
      */
-    public static void selectionSort(final Integer[] a) {
-        for (int i = 0; i < a.length - 1; i++) {
+    public static void selectionSort(final Integer[] data) {
+        for (int i = 0; i < data.length - 1; i++) {
             int index = i;
 
-            for (int j = i + 1; j < a.length; j++) {
-                if (a[j] < a[index])
+            for (int j = i + 1; j < data.length; j++) {
+                if (data[j] < data[index])
                     index = j;
             }
 
-            int smallerNumber = a[index];
-            a[index] = a[i];
-            a[i] = smallerNumber;
+            int smallerNumber = data[index];
+            data[index] = data[i];
+            data[i] = smallerNumber;
         }
     }
 
     /**
      * Sortiert das int-Array aufsteigend, mit direktem Austauschen (bubble sort)
      *
-     * @param a Zu sortierendes Array.
+     * @param data Zu sortierendes Array.
      */
-    public static void bubbleSort(final Integer[] a) {
-        int n = a.length;
+    public static void bubbleSort(final Integer[] data) {
+        int n = data.length;
 
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (a[j] > a[j + 1]) {
+                if (data[j] > data[j + 1]) {
                     // swap temp and arr[i]
-                    int temp = a[j];
-                    a[j] = a[j + 1];
-                    a[j + 1] = temp;
+                    int temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
                 }
             }
         }
@@ -104,33 +90,33 @@ public class Sort {
     /**
      * Sortiert das int-Array aufsteigend, mit shell sort
      *
-     * @param a Zu sortierendes Array.
+     * @param data Zu sortierendes Array.
      */
-    public static void shellSort(final Integer[] a) {
-        int n = a.length;
+    public static void shellSort(final Integer[] data) {
+        int n = data.length;
 
-        // Start with a big gap, then reduce the gap
+        // Start with data big gap, then reduce the gap
         for (int gap = n / 2; gap > 0; gap /= 2) {
-            // Do a gapped insertion sort for this gap size.
-            // The first gap elements a[0..gap-1] are already
+            // Do data gapped insertion sort for this gap size.
+            // The first gap elements data[0..gap-1] are already
             // in gapped order keep adding one more element
             // until the entire array is gap sorted
             for (int i = gap; i < n; i += 1) {
-                // add a[i] to the elements that have been gap
-                // sorted save a[i] in temp and make a hole at
+                // add data[i] to the elements that have been gap
+                // sorted save data[i] in temp and make data hole at
                 // position i
-                int temp = a[i];
+                int temp = data[i];
 
                 // shift earlier gap-sorted elements up until
-                // the correct location for a[i] is found
+                // the correct location for data[i] is found
                 int j;
-                for (j = i; j >= gap && a[j - gap] > temp; j -= gap) {
-                    a[j] = a[j - gap];
+                for (j = i; j >= gap && data[j - gap] > temp; j -= gap) {
+                    data[j] = data[j - gap];
                 }
 
-                // put temp (the original a[i]) in its correct
+                // put temp (the original data[i]) in its correct
                 // location
-                a[j] = temp;
+                data[j] = temp;
             }
         }
     }
@@ -138,47 +124,93 @@ public class Sort {
     /**
      * Vertauscht zwei bestimmte Zeichen im Array.
      *
-     * @param a           Zeichen‐Array
+     * @param data        Zeichen‐Array
      * @param firstIndex  Index des ersten Zeichens
      * @param secondIndex Index des zweiten Zeichens
      */
-    private static final void exchange(final Character[] a, final int firstIndex, final int secondIndex) {
-        char tmp;
-        tmp = a[firstIndex];
-        a[firstIndex] = a[secondIndex];
-        a[secondIndex] = tmp;
+    private static <T> void exchange(final T data[], final int firstIndex, final int secondIndex) {
+        T tmp = data[firstIndex];
+        data[firstIndex] = data[secondIndex];
+        data[secondIndex] = tmp;
     }
 
-    public static final void quickSort(final Character[] a, final int left, final int right) {
+    public static final void quickSort(final Character[] data, final int left, final int right) {
         int up = left; // linke Grenze
         int down = right - 1; // rechte Grenze (ohne Trennelement) -> -1 = Trennelement
-        char t = a[right]; //rechtes Element als Trennelement
+        char t = data[right]; //rechtes Element als Trennelement
         boolean allChecked = false;
         do {
-            while (a[up] < t) {
+            while (data[up] < t) {
                 up++; // suche grösseres (>=) Element von links an
             }
-            while ((a[down] >= t) && (down > up)) {
+            while ((data[down] >= t) && (down > up)) {
                 down--; // suche echt kleineres (<) Element von rechts an
             }
             if (down > up) { // solange keine Überschneidung
-                exchange(a, up, down);
+                exchange(data, up, down);
                 up++; // linke Grenze verschieben
                 down--; // rechte Grenze verschieben
             } else {
                 allChecked = true; // Austauschen beendet
             }
         } while (!allChecked);
-        exchange(a, up, right); // Trennelement an endgültige Position (a[up])
+        exchange(data, up, right); // Trennelement an endgültige Position (data[up])
         if (left < (up - 1)) {
-            quickSort(a, left, (up - 1)); // linke Hälfte
+            quickSort(data, left, (up - 1)); // linke Hälfte
         }
         if ((up + 1) < right) {
-            quickSort(a, (up + 1), right); // rechte Hälfte, ohne Trennelement
+            quickSort(data, (up + 1), right); // rechte Hälfte, ohne Trennelement
         }
     }
 
-    public static final void quickSort(final Character[] a) {
-        quickSort(a, 0, a.length - 1);
+    public static final void quickSort(final Character[] data) {
+        quickSort(data, 0, data.length - 1);
+    }
+
+    public static void quickInsertionSort(final Character[] data, final int m) {
+        quickInsertionSort(data, 0, data.length - 1, m);
+    }
+
+    static void quickInsertionSort(final Character[] data, final int left, final int right, final int m) {
+        int up = left; // linke Grenze
+        int down = right - 1; // rechte Grenze (ohne Trennelement) -> -1 = Trennelement
+        char t = data[right]; //rechtes Element als Trennelement
+        boolean allChecked = false;
+        do {
+            while (data[up] < t) {
+                up++; // suche grösseres (>=) Element von links an
+            }
+            while ((data[down] >= t) && (down > up)) {
+                down--; // suche echt kleineres (<) Element von rechts an
+            }
+            if (down > up) { // solange keine Überschneidung
+                exchange(data, up, down);
+                up++; // linke Grenze verschieben
+                down--; // rechte Grenze verschieben
+            } else {
+                allChecked = true; // Austauschen beendet
+            }
+        } while (!allChecked);
+        exchange(data, up, right); // Trennelement an endgültige Position (data[up])
+
+        // veränderte Rekursionsanweisungen
+        if (left < up - 1) {
+            int from = left;
+            int to = up - 1;
+            if (to - from + 1 >= m) {
+                quickInsertionSort(data, from, to, m);
+            } else {
+                insertionSort(data, from, to);
+            }
+        }
+        if (right > up + 1) {
+            int from = up + 1;
+            int to = right;
+            if (to - from + 1 >= m) {
+                quickInsertionSort(data, from, to, m);
+            } else {
+                insertionSort(data, from, to);
+            }
+        }
     }
 }

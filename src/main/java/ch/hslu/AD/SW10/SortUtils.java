@@ -16,7 +16,7 @@ public class SortUtils {
         ASCENDING, DESCENDING
     }
 
-    public static final <T> boolean assertIsSorted(Comparable<T> a[], Order order) {
+    public static final <T> boolean isSorted(Comparable<T> a[], Order order) {
         for (int i = 0; i < a.length - 1; i++) {
             Comparable<T> current = a[i];
             Comparable<T> next = a[i + 1];

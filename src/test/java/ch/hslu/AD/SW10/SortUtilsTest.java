@@ -27,15 +27,15 @@ public class SortUtilsTest {
 
     @Test
     public void testIsSortedArrayAscending() {
-        assertTrue(SortUtils.assertIsSorted(charArraySorted, SortUtils.Order.ASCENDING));
-        assertFalse(SortUtils.assertIsSorted(charArrayReverseSorted, SortUtils.Order.ASCENDING));
-        assertFalse(SortUtils.assertIsSorted(charArrayRandom, SortUtils.Order.ASCENDING));
+        assertTrue(SortUtils.isSorted(charArraySorted, SortUtils.Order.ASCENDING));
+        assertFalse(SortUtils.isSorted(charArrayReverseSorted, SortUtils.Order.ASCENDING));
+        assertFalse(SortUtils.isSorted(charArrayRandom, SortUtils.Order.ASCENDING));
     }
 
     @Test
     public void testIsSortedArrayDescending() {
-        assertTrue(SortUtils.assertIsSorted(charArrayReverseSorted, SortUtils.Order.DESCENDING));
-        assertFalse(SortUtils.assertIsSorted(charArraySorted, SortUtils.Order.DESCENDING));
-        assertFalse(SortUtils.assertIsSorted(charArrayRandom, SortUtils.Order.DESCENDING));
+        assertTrue(SortUtils.isSorted(charArrayReverseSorted, SortUtils.Order.DESCENDING));
+        assertFalse(SortUtils.isSorted(charArraySorted, SortUtils.Order.DESCENDING));
+        assertFalse(SortUtils.isSorted(charArrayRandom, SortUtils.Order.DESCENDING));
     }
 }
