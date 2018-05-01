@@ -1,4 +1,4 @@
-package ch.hslu.AD.SW10;
+package ch.hslu.AD.SW10.Sorting;
 
 import org.junit.Before;
 import org.junit.Test;

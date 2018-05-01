@@ -1,4 +1,4 @@
-package ch.hslu.AD.SW10;
+package ch.hslu.AD.SW10.Sorting;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
