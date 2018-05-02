@@ -36,6 +36,13 @@ public class SortTest {
     }
 
     @Test
+    public void testQuickSort2() {
+        Sort.quickSort(charArray);
+        boolean sorted = SortUtils.isSorted(charArray, SortUtils.Order.ASCENDING);
+        assertTrue(sorted);
+    }
+
+    @Test
     public void benchmarkQuickSort() {
         LOG.info("quick sort:");
         LOG.info(String.format("%8s %13s", "Elements", "Time"));
@@ -50,13 +57,6 @@ public class SortTest {
             assertTrue(SortUtils.isSorted(data, SortUtils.Order.ASCENDING));
             LOG.info(String.format("%8d %10d ms", n, end - start));
         }
-    }
-
-    @Test
-    public void testQuickSort2() {
-        Sort.quickSort(charArray);
-        boolean sorted = SortUtils.isSorted(charArray, SortUtils.Order.ASCENDING);
-        assertTrue(sorted);
     }
 
     @Test
