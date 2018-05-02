@@ -50,4 +50,25 @@ public class SortUtils {
 
         return randomChar;
     }
+
+    public static final String[] randomStrings(final int length) {
+        Random random = new Random();
+        String[] randomString = new String[length];
+        for (int i = 0; i < length; i++) {
+            String tmp = (char) (random.nextInt(26) + 'a') + "" + (char) (random.nextInt(26) + 'a') + (char) (random.nextInt(26) + 'a') + (char) (random.nextInt(26) + 'a');
+            randomString[i] = tmp; // speichert und generiert einen zufälligen String-Wert
+        }
+
+        return randomString;
+    }
+
+    public static final Integer[] randomIntegers(final int length) {
+        Random random = new Random();
+        Integer[] randomInteger = new Integer[length];
+        for (int i = 0; i < length; i++) {
+            randomInteger[i] = random.nextInt(length); // speichert und generiert einen zufälligen Char-Wert
+        }
+
+        return randomInteger;
+    }
 }

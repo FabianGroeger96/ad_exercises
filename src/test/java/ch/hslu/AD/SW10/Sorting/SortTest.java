@@ -22,10 +22,14 @@ public class SortTest {
     private static final Logger LOG = LogManager.getLogger(SortTest.class);
 
     private Character[] charArray;
+    private String[] stringArray;
+    private Integer[] integerArray;
 
     @Before
     public void setup() {
         charArray = SortUtils.randomChars(DEFAULT_SIZE);
+        stringArray = SortUtils.randomStrings(DEFAULT_SIZE);
+        integerArray = SortUtils.randomIntegers(DEFAULT_SIZE);
     }
 
     @Test
@@ -39,6 +43,20 @@ public class SortTest {
     public void testQuickSort2() {
         Sort.quickSort(charArray);
         boolean sorted = SortUtils.isSorted(charArray, SortUtils.Order.ASCENDING);
+        assertTrue(sorted);
+    }
+
+    @Test
+    public void testQuickSortGenericString() {
+        Sort.quickSort(stringArray);
+        boolean sorted = SortUtils.isSorted(stringArray, SortUtils.Order.ASCENDING);
+        assertTrue(sorted);
+    }
+
+    @Test
+    public void testQuickSortGenericInteger() {
+        Sort.quickSort(integerArray);
+        boolean sorted = SortUtils.isSorted(integerArray, SortUtils.Order.ASCENDING);
         assertTrue(sorted);
     }
 

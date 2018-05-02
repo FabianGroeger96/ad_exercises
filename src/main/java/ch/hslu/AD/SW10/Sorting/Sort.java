@@ -146,6 +146,7 @@ public class Sort {
         int down = right - 1; // rechte Grenze (ohne Trennelement) -> -1 = Trennelement
         char t = data[right]; //rechtes Element als Trennelement
         boolean allChecked = false;
+
         do {
             while (data[up] < t) {
                 up++; // suche grösseres (>=) Element von links an
@@ -161,10 +162,54 @@ public class Sort {
                 allChecked = true; // Austauschen beendet
             }
         } while (!allChecked);
+
         exchange(data, up, right); // Trennelement an endgültige Position (data[up])
+
         if (left < (up - 1)) {
             quickSort(data, left, (up - 1)); // linke Hälfte
         }
+
+        if ((up + 1) < right) {
+            quickSort(data, (up + 1), right); // rechte Hälfte, ohne Trennelement
+        }
+    }
+
+    /**
+     * Sortiert ein Array mit dem quicksort Algorithmus
+     *
+     * @param data  das Array (Daten)
+     * @param left  die linke Grenze
+     * @param right die rechte Grenze
+     * @param <T>   generisch implementiert
+     */
+    public static <T extends Comparable<T>> void quickSort(final T[] data, final int left, final int right) {
+        int up = left; // linke Grenze
+        int down = right - 1; // rechte Grenze (ohne Trennelement) -> -1 = Trennelement
+        T t = data[right]; //rechtes Element als Trennelement
+        boolean allChecked = false;
+
+        do {
+            while (data[up].compareTo(t) < 0) {
+                up++; // suche grösseres (>=) Element von links an
+            }
+            while ((data[down].compareTo(t) >= 0) && (down > up)) {
+                down--; // suche echt kleineres (<) Element von rechts an
+            }
+            if (down > up) { // solange keine Überschneidung
+                exchange(data, up, down);
+                up++; // linke Grenze verschieben
+                down--; // rechte Grenze verschieben
+            } else {
+                allChecked = true; // Austauschen beendet
+            }
+        } while (!allChecked);
+
+        exchange(data, up, right); // Trennelement an endgültige Position (data[up])
+
+        if (left < (up - 1)) {
+            quickSort(data, left, (up - 1)); // linke Hälfte
+        }
+
         if ((up + 1) < right) {
             quickSort(data, (up + 1), right); // rechte Hälfte, ohne Trennelement
         }
@@ -176,6 +221,16 @@ public class Sort {
      * @param data das Array von Chars (Daten)
      */
     public static final void quickSort(final Character[] data) {
+        quickSort(data, 0, data.length - 1);
+    }
+
+    /**
+     * Sortiert ein Array mit dem quicksort Algorithmus
+     *
+     * @param data das Array (Daten)
+     * @param <T>  generisch implementiert
+     */
+    public static <T extends Comparable<T>> void quickSort(final T[] data) {
         quickSort(data, 0, data.length - 1);
     }
 
