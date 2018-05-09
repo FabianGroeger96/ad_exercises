@@ -1,7 +1,6 @@
 package ch.hslu.AD.SW11.Fibonacci;
 
 import java.math.BigInteger;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -25,12 +24,9 @@ public class FibonacciTask extends RecursiveTask<BigInteger> {
             return BigInteger.ONE;
         }
 
-        FibonacciTask ft1 = new FibonacciTask(n - 1);
-        FibonacciTask ft2 = new FibonacciTask(n - 2);
-
-        ForkJoinTask<BigInteger> t1 = ft1.fork();
-        ForkJoinTask<BigInteger> t2 = ft2.fork();
-
-        return t1.join().add(t2.join());
+        FibonacciTask f1 = new FibonacciTask(n - 1);
+        f1.fork();
+        FibonacciTask f2 = new FibonacciTask(n - 2);
+        return f2.compute().add(f1.join());
     }
 }

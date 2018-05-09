@@ -47,6 +47,7 @@ public class MergeSortTest {
     public void benchmarkMergeSortVSShellSort() {
         System.out.println("merge sort vs shell sort:");
         System.out.println(String.format("%10s %20s %30s", "Elements", "Merge Sort", "Shell Sort"));
+        System.out.println(String.format("%10s %20s %30s", "--------", "----------", "----------"));
 
         for (int elements : ARRAY_ELEMENTS) {
             int data[] = SortUtils.randomInt(elements);

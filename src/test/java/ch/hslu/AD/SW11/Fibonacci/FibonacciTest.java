@@ -67,6 +67,8 @@ public class FibonacciTest {
     @Test
     public void benchmarkRecursivelyVSConcurrentlyVSIteratively() {
         System.out.println(String.format("%15s %15s %15s %15s", "nth Fib", "recursively", "concurrently", "iteratively"));
+        System.out.println(String.format("%15s %15s %15s %15s", "-------", "-----------", "------------", "-----------"));
+
         for (int n = 1; n <= N; n++) {
             BigInteger result;
 
@@ -92,6 +94,7 @@ public class FibonacciTest {
     @Test
     public void benchmarkForkJoinPoolVSCommonPool() {
         System.out.println(String.format("%10s %20s %30s", "nth Fib", "Fork Join Pool", "Common Pool"));
+        System.out.println(String.format("%10s %20s %30s", "-------", "--------------", "-----------"));
 
         for (int n = 1; n <= N; n++) {
             BigInteger result;

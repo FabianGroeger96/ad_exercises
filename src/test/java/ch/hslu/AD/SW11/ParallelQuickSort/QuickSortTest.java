@@ -20,7 +20,7 @@ public class QuickSortTest {
     private static final int ARRAY_SIZE = 10_000_000;
     private static final int THRESHOLD = 50;
     private static final int[] ARRAY_ELEMENTS = new int[]{1_000, 5_000, 10_000, 50_000, 100_000, 500_000, 1_000_000, 10_000_000, 100_000_000};
-    private static final int[] THRESHOLDS = new int[]{10, 25, 50, 75, 100, 200, 250};
+    private static final int[] THRESHOLDS = new int[]{10, 25, 50, 75, 100, 200, 250, 1_000, 10_000, 100_000, 1_000_000, 2_000_00, 10_000_000, 20_000_00, 50_000_000};
 
     @Test
     public void testQuickSort() {
@@ -31,8 +31,8 @@ public class QuickSortTest {
 
     @Test
     public void benchmarkQuickSort() {
-        System.out.println("Threshold duration");
-        System.out.println("--------- --------");
+        System.out.println(String.format("%10s %10s", "Threshold", "Duration"));
+        System.out.println(String.format("%10s %10s", "---------", "--------"));
 
         for (int threshold : THRESHOLDS) {
             int[] array = SortUtils.randomInt(ARRAY_SIZE);
@@ -42,7 +42,7 @@ public class QuickSortTest {
             long end = System.currentTimeMillis();
 
             assertTrue(SortUtils.isSorted(array, SortUtils.Order.ASCENDING));
-            System.out.printf("%9d %8d\n", threshold, end - start);
+            System.out.printf("%10d %10d\n", threshold, end - start);
         }
     }
 
@@ -50,6 +50,7 @@ public class QuickSortTest {
     public void benchmarkPerformance() {
         System.out.println("parallel quick sort vs quick sort vs arrays.sort:");
         System.out.println(String.format("%10s %20s %30s %40s", "Elements", "PQS", "QS", "AS"));
+        System.out.println(String.format("%10s %20s %30s %40s", "--------", "--------", "--------", "--------"));
 
         for (int elements : ARRAY_ELEMENTS) {
             int data[] = SortUtils.randomInt(elements);
