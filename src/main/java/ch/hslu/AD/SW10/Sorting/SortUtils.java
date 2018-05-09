@@ -41,6 +41,18 @@ public class SortUtils {
         return true;
     }
 
+    public static boolean isSorted(int[] array, Order order) {
+        return isSorted(intArrayToInteger(array), order);
+    }
+
+    public static Integer[] intArrayToInteger(int[] intArray) {
+        Integer[] result = new Integer[intArray.length];
+        for (int i = 0; i < intArray.length; i++) {
+            result[i] = Integer.valueOf(intArray[i]);
+        }
+        return result;
+    }
+
     public static final Character[] randomChars(final int length) {
         Random random = new Random();
         Character[] randomChar = new Character[length];
@@ -65,6 +77,16 @@ public class SortUtils {
     public static final Integer[] randomIntegers(final int length) {
         Random random = new Random();
         Integer[] randomInteger = new Integer[length];
+        for (int i = 0; i < length; i++) {
+            randomInteger[i] = random.nextInt(length); // speichert und generiert einen zufälligen Char-Wert
+        }
+
+        return randomInteger;
+    }
+
+    public static final int[] randomInt(final int length) {
+        Random random = new Random();
+        int[] randomInteger = new int[length];
         for (int i = 0; i < length; i++) {
             randomInteger[i] = random.nextInt(length); // speichert und generiert einen zufälligen Char-Wert
         }

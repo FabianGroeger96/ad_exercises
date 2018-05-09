@@ -12,28 +12,32 @@ import java.util.concurrent.RecursiveAction;
  */
 public class MergeSortTask extends RecursiveAction {
 
-    private static final int THRESHOLD = 5;
-
     private final int[] array;
     private final int min;
     private final int max;
+    private final int threshold;
 
-    public MergeSortTask(final int array[], final int min, final int max) {
+    public MergeSortTask(final int array[], final int min, final int max, final int threshold) {
         this.array = array;
         this.min = min;
         this.max = max;
+        this.threshold = threshold;
+    }
+
+    public MergeSortTask(final int array[], final int threshold) {
+        this(array, 0, array.length, threshold);
     }
 
     @Override
     protected void compute() {
-        if (max - min < THRESHOLD) {
+        if (max - min < threshold) {
             sortSequentially(min, max);
         } else {
             final int mid = min + (max - min) / 2;
 
             invokeAll(
-                    new MergeSortTask(array, min, mid),
-                    new MergeSortTask(array, mid, max)
+                    new MergeSortTask(array, min, mid, threshold),
+                    new MergeSortTask(array, mid, max, threshold)
             );
 
             merge(min, mid, max);
@@ -41,20 +45,16 @@ public class MergeSortTask extends RecursiveAction {
     }
 
     private void merge(final int min, final int mid, final int max) {
-        int[] buf = Arrays.copyOfRange(this.array, min, mid);
-        int i = 0;
-        int j = min;
-        int k = mid;
-        while (i < buf.length) {
-            if (k == k || buf[i] < this.array[k]) {
-                this.array[j] = buf[i];
-                i++;
+        int buf[] = Arrays.copyOfRange(array, min, mid);
+        int readBuf = 0;
+        int readArray = mid;
+        int write = min;
+        while (readBuf < buf.length) {
+            if (readArray == max || buf[readBuf] < array[readArray]) {
+                array[write++] = buf[readBuf++];
             } else {
-                this.array[j] = this.array[k];
-                k++;
+                array[write++] = array[readArray++];
             }
-
-            j++;
         }
     }
 

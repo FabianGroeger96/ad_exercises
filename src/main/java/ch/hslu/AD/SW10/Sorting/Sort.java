@@ -135,6 +135,19 @@ public class Sort {
     }
 
     /**
+     * Vertauscht zwei bestimmte Zeichen im Array.
+     *
+     * @param data        Zeichen‐Array
+     * @param firstIndex  Index des ersten Zeichens
+     * @param secondIndex Index des zweiten Zeichens
+     */
+    private static void exchange(final int data[], final int firstIndex, final int secondIndex) {
+        int tmp = data[firstIndex];
+        data[firstIndex] = data[secondIndex];
+        data[secondIndex] = tmp;
+    }
+
+    /**
      * Sortiert ein Array von Chars mit dem quicksort Algorithmus
      *
      * @param data  das Array von Chars (Daten)
@@ -289,6 +302,60 @@ public class Sort {
     }
 
     /**
+     * Sortiert ein Array von Integers mit dem quicksort Algorithmus,
+     * wenn die Daten einen gewissen Schwellwert erreicht haben wird das Array
+     * mit insertionsort sortiert
+     *
+     * @param data  das Array von Chars (Daten)
+     * @param left  die linke Grenze
+     * @param right die rechte Grenze
+     * @param m     der Schwellwert
+     */
+    static void quickInsertionSort(final Integer[] data, final int left, final int right, final int m) {
+        int up = left; // linke Grenze
+        int down = right - 1; // rechte Grenze (ohne Trennelement) -> -1 = Trennelement
+        int t = data[right]; //rechtes Element als Trennelement
+        boolean allChecked = false;
+        do {
+            while (data[up] < t) {
+                up++; // suche grösseres (>=) Element von links an
+            }
+            while ((data[down] >= t) && (down > up)) {
+                down--; // suche echt kleineres (<) Element von rechts an
+            }
+            if (down > up) { // solange keine Überschneidung
+                exchange(data, up, down);
+                up++; // linke Grenze verschieben
+                down--; // rechte Grenze verschieben
+            } else {
+                allChecked = true; // Austauschen beendet
+            }
+        } while (!allChecked);
+        exchange(data, up, right); // Trennelement an endgültige Position (data[up])
+
+        // veränderte Rekursionsanweisungen
+        if (left < up - 1) {
+            int from = left;
+            int to = up - 1;
+            if (to - from + 1 > m) { // vergleichen der grösse der zu sortierenden daten mit dem Schwellwert
+                quickInsertionSort(data, from, to, m);
+            } else {
+                insertionSort(data, from, to);
+            }
+        }
+
+        if (right > up + 1) { // vergleichen der grösse der zu sortierenden daten mit dem Schwellwert
+            int from = up + 1;
+            int to = right;
+            if (to - from + 1 > m) {
+                quickInsertionSort(data, from, to, m);
+            } else {
+                insertionSort(data, from, to);
+            }
+        }
+    }
+
+    /**
      * Sortiert ein Array von Chars mit dem quicksort Algorithmus,
      * wenn die Daten einen gewissen Schwellwert erreicht haben wird das Array
      * mit insertionsort sortiert
@@ -297,6 +364,18 @@ public class Sort {
      * @param m    der Schwellwert
      */
     public static void quickInsertionSort(final Character[] data, final int m) {
+        quickInsertionSort(data, 0, data.length - 1, m);
+    }
+
+    /**
+     * Sortiert ein Array von Integers mit dem quicksort Algorithmus,
+     * wenn die Daten einen gewissen Schwellwert erreicht haben wird das Array
+     * mit insertionsort sortiert
+     *
+     * @param data das Array von Chars (Data)
+     * @param m    der Schwellwert
+     */
+    public static void quickInsertionSort(final Integer[] data, final int m) {
         quickInsertionSort(data, 0, data.length - 1, m);
     }
 }

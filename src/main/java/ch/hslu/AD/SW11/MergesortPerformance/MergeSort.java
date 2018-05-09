@@ -1,5 +1,7 @@
 package ch.hslu.AD.SW11.MergesortPerformance;
 
+import java.util.concurrent.ForkJoinPool;
+
 /**
  * Übung: Parallelisierungsframeworks (N4)
  * Aufgabe: Performance-Messungen an Mergesort
@@ -9,4 +11,9 @@ package ch.hslu.AD.SW11.MergesortPerformance;
  */
 public class MergeSort {
 
+    public static void mergeSort(int array[], int threshold) {
+        ForkJoinPool pool = new ForkJoinPool();
+        MergeSortTask task = new MergeSortTask(array, threshold);
+        pool.invoke(task);
+    }
 }
