@@ -7,7 +7,7 @@ package ch.hslu.AD.SW13.Quicksearch;
  * @author Fabian Gröger
  * @version 23.05.2018
  */
-public class SearchAlgorithm {
+public class QuickSearch {
 
     /**
      * Durchsucht eine Zeichenkette mittels quickSearch.
